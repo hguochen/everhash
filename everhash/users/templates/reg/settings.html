@@ -1,0 +1,49 @@
+{% extends "reg/base_registration.html" %}
+
+{% load static %}
+
+{% comment %}
+Settings Page
+{% endcomment %}
+
+{% block title %}
+Settings
+{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block body %}
+<div class="container top-margin">
+  <div class="col-md-4 col-md-offset-4">    
+  <ul id="tabs" class="nav nav-tabs">
+    <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+    <li><a href="{% url 'password_change' %}">Password</a></li>    
+  </ul><!--nav nav-tabs-->
+
+  <div id="tab-content" class="tab-content">    
+    <div class="tab-pane fade active in" id="profile">
+      <h2>Edit Profile</h2>
+      <form action="" method="POST">{% csrf_token %}
+      {{ profile_formset.management_form }}
+      {% for form in profile_formset %}
+        {{ form.errors }}
+        {{ form }}            
+      {% endfor %} 
+        <div class="form-group pull-left">
+          <input type="submit" class="btn btn-primary btn-signup" value="Update">
+        </div>
+      </form>              
+      <div class="clear"></div>        
+    </div><!--tab-pane-->
+
+    <div class="tab-pane fade" id="password"></div><!--tab-pane-->
+  </div><!--tab-content-->
+  </div>
+</div><!--container-->
+{% block extra_js %}
+  <script>
+    
+  </script>
+{% endblock extra_js %}
+{% endblock body %}

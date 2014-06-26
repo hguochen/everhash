@@ -1,0 +1,8 @@
+{% extends "reg/base_registration.html" %}
+{% load i18n %}
+{% block title %}Activation complete{% endblock %}
+
+{% block content %}
+	<h1>Success!</h1>  
+	<p>Your account is now activated. Now you can <a href="{% url 'login' %}">log in</a>.</p>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "reg/base_registration.html" %}
+{% load static %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}   
+<h1 class="signupHeader">Sign up here, or <a href="">Login</a></h1>
+<div class="login-or"><hr class="hr-or"></div>
+
+<form action="" method="POST">{% csrf_token %}
+  {% if form.errors %}
+    <p style="color:red;">
+        Please correct the error{{ form.errors|pluralize }} below.
+    </p>
+  {% endif %}
+  <div class="form-group">
+    {{ form.username.errors }}
+    {{ form.username}}
+  </div>
+  <div class="form-group">
+    {{ form.email.errors }}
+    {{ form.email }}
+  </div>
+  <div class="form-group">
+    {{ form.password1 }}
+  </div>
+  <div class="form-group">
+    {{ form.password2 }}
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-success btn-signup" value="Sign up">
+  </div>
+  <div class="clear"></div>
+</form>
+{% endblock %}
+
+{% block content-related %}
+<p>Fill out the form to the left (all fields are required), and your
+account will be created; you'll be sent an email with instructions on how
+to finish your registration.</p>
+
+<p>We'll only use your email to send you signup instructions. We hate spam
+as much as you do.</p>
+
+{% endblock %}

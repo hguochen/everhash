@@ -1,0 +1,8 @@
+/* FOOTER */
+.footer{background:#fff; padding: 45px 0 0; position:relative; margin-top: -150px; clear:both;}
+.footer ul{margin: 10px 0 35px 0;}
+.footer li{ list-style: none; margin-left: -40px;}
+.footer strong{color:#000; text-transform:uppercase;}
+.footer a{color:#a1a1a1;}
+.footer .copyright{text-align:center; color:#a1a1a1; margin-left: -40px; padding-top: 48px;}
+

@@ -142,14 +142,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
-TEMPLATE_LOADERS = (
+TEMPLATE_LOADERS = (    
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
 TEMPLATE_DIRS = (
-    normpath(join(SITE_ROOT, 'templates')),
+    normpath(join(SITE_ROOT, 'templates')),    
 )
 ########## END TEMPLATE CONFIGURATION
 
@@ -192,12 +192,19 @@ DJANGO_APPS = (
     # 'django.contrib.admindocs',
 )
 
+THIRD_PARTY_APPS = (
+    # Database migration helpers:
+    'south',
+    'registration',
+)
+
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'users',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ########## END APP CONFIGURATION
 
 
@@ -242,10 +249,16 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 ########## SOUTH CONFIGURATION
 # See: http://south.readthedocs.org/en/latest/installation.html#configuring-your-django-installation
-INSTALLED_APPS += (
-    # Database migration helpers:
-    'south',
-)
+
 # Don't need to use South when setting up a test database.
 SOUTH_TESTS_MIGRATE = False
 ########## END SOUTH CONFIGURATION
+
+########## REGISTRATION APP
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7 #One-week activation window
+########## END REGISTRATION APP
+
+########## AUTH
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+########## END AUTH

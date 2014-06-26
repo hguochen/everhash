@@ -1,0 +1,16 @@
+{% load i18n %}
+{% trans "Activate account at" %} {{ site.name }}:
+
+Hi & Welcome,
+
+Someone, hopefully you, signed up for a new account at Everhash using this email address. 
+
+To activate and use your account, just click the link below and we will do the rest:
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+If you didn't request this, you don't need to do anything; and you won't ever hear from us again... ever. The account will automatically self-destruct in {{ expiration_days }} days.
+
+Thanks and See You Soon!
+
+Everhash Team

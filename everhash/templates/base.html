@@ -3,68 +3,110 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}everhash{% endblock title %}</title>
+    <title>{% block title %}Everhash{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <!-- This file store project specific CSS -->
+    <link href="{% static 'css/everhash.css' %}" rel="stylesheet">
+    
+    <!-- Use this to quickly test CSS changes in a template,
+        then move to everhash.css -->
+    {% block extra_css %}{% endblock extra_css %}
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- This file store project specific CSS -->
-    <link href="{% static 'css/everhash.css' %}" rel="stylesheet">
-
-    <!-- Use this to quickly test CSS changes in a template,
-        then move to everhash.css -->
-    {% block extra_css %}{% endblock extra_css %}
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1" style="">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar bar-color" style="background:grey;"></span>
+            <span class="icon-bar bar-color" style="background:grey;"></span>
+            <span class="icon-bar bar-color" style="background:grey;"></span>
           </button>
-          <a class="navbar-brand" href="#">everhash</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <a class="navbar-brand" href="">Everhash</a>
+        </div><!-- navbar-header -->
+        
+        <!-- Collect the nav links for toggling-->
+        <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse" id="navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">            
+            {% if user.is_authenticated %}                      
+              <li class="dropdown">
+                <a class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-user user-icon"></span> {{ user.username }} <span class="caret" style=""></span>
+                </a>
+                <ul class='dropdown-menu'>
+                  <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user user-icon"></span> Profile</a></li>
+                  <li><a href="{% url 'settings' %}"><span class="glyphicon glyphicon-cog cog-icon"></span> Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off off-icon"></span> Logout</a></li>
+                </ul>
+              </li>  
+            {% else %}
+              <li><a href="{% url 'registration_register' %}">Sign up</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}  
           </ul>
-        </div><!--/.nav-collapse -->
+        </nav>
+      </div><!--container-->
+    </header>
+
+    <div class="wrapper">
+      <div class="main">
+        <h1>{% block page_title %}Everhash{% endblock page_title %}</h1>
+        {% block body %}{% endblock body %}
       </div>
-    </div>
-
-    <div class="container">
-
-      <h1>{% block page_title %}Example Base Template{% endblock page_title %}</h1>
-
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
-
     </div> <!-- /container -->
+    
+    <footer class="footer">
+    <div class="container">
+      <div class="row">
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <div class="col-md-2">
+          <strong>Press</strong>
+          <ul>
+              <li><a href ="">About Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <strong>Support</strong>
+          <ul>
+            <li><a href = "">Contact us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <strong>Social</strong>
+          <ul>
+            <li><a href = "#">Facebook</a></li>
+            <li><a href = "" target="_tab">Twitter</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3 copyright">          
+          <p>&copy;2014 Everhash&trade; - All Rights Reserved</p>
+        </div>
+      </div><!--row-->
+    </div><!--container-->
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- bootstrap -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     <!-- place project specific Javascript in this file -->

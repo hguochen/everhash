@@ -1,0 +1,34 @@
+{% extends "reg/base_registration.html" %}
+{% load i18n %}
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<h1 class="loginHeader" style="text-align:center;">Log in</h1>
+<br>
+<form method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
+      {% if form.errors %}
+          <p style="color:red;">
+              Please correct the error {{ form.errors|pluralize }} below.
+          </p>
+      {% endif %}
+      {% if auth_err %}
+          <p style="color:red;">{{ auth_err }}</p> 
+      {% endif %}
+
+      <div class="form-group">		
+			{{ form.username.errors }}
+			{{ form.username}}
+  	</div>
+  	<div class="form-group">
+			{{ form.password.errors }}
+			{{ form.password}}
+  	</div>
+
+    <div class="checkbox">
+    	<label><input name="remember_me" type="checkbox" value="true">Remember me</label>
+      <a class="pull-right" href="{% url 'password_reset' %}">Forgot password?</a>  	             
+    </div>
+    <input type="submit" class="btn btn-success btn-login" value="Login">
+    
+</form>
+{% endblock %}
