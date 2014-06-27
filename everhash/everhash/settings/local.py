@@ -24,7 +24,8 @@ ALLOWED_HOSTS = ['localhost']
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Redirects all email to stdout
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Redirects all email to stdout
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
 EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
 
@@ -36,6 +37,9 @@ EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'everhashchen@gmail.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = environ.get('EMAIL_PORT', 587)
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
+EMAIL_USE_TLS = True
 ########## END EMAIL CONFIGURATION
 
 

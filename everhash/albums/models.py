@@ -21,12 +21,15 @@ class AlbumManager(models.Manager):
 		return self.get_query_set().desc_pub_date()
 
 	# get name of album
-	def get_name(self):
-		return self.get_query_set().get_name(self.name)
+	#def get_name(self):
+	#	return self.get_query_set().get_name(self.name)
 
 	# get all albums posted by a user
 	def get_user_posted_albums(self, user):
 		return self.get_query_set().get_user_posted_albums(user)
+
+	def get_album_names(self):
+		return self.get_query_set().get_album_names()
 
 
 class Album(models.Model):
@@ -39,6 +42,7 @@ class Album(models.Model):
 	name = models.CharField(max_length=100)
 	pub_date = models.DateTimeField('date published', default=timezone.now()) # saved at UTC timezone
 	default_pic = models.CharField(max_length=600, blank=True, null=True) # collage pic for album	
+	milestone = models.IntegerField(default=100)
 
 	objects = AlbumManager()
 	
@@ -60,9 +64,11 @@ class AlbumQuerySet(QuerySet):
 	def desc_pub_date(self):
 		return self.filter(pub_date__year=timezone.now().year).order_by('-pub_date')
 
-	def get_name(self, name):
-		return self.get(name=name)
+	#def get_name(self, name):
+	#	return self.get(name=name)
 
 	def get_user_posted_albums(self, user):
 		return self.filter(user=user).order_by('-pub_date')
 
+	def get_album_names(self):
+		return self.values('name')

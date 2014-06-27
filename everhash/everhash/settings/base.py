@@ -203,6 +203,7 @@ LOCAL_APPS = (
     'users',
     'albums',
     'pictures',
+    'tweets',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -242,6 +243,12 @@ LOGGING = {
 }
 ########## END LOGGING CONFIGURATION
 
+########## AWS
+AWS_ACCESS_KEY_ID = 'AKIAICXOR2SCWHXA7PSQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_MEDIA_STORAGE_BUCKET = 'everhash-media'
+S3_URL = 'http://s3-ap-southeast-1.amazonaws.com/%s/' % AWS_MEDIA_STORAGE_BUCKET
+########## END AWS
 
 ########## WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
@@ -256,11 +263,17 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 SOUTH_TESTS_MIGRATE = False
 ########## END SOUTH CONFIGURATION
 
-########## REGISTRATION APP
+########## REGISTRATION APP CONFIGURATION
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7 #One-week activation window
-########## END REGISTRATION APP
+########## END REGISTRATION APP CONFIGURATION
 
 ########## AUTH
 LOGIN_REDIRECT_URL = '/accounts/profile/'
 ########## END AUTH
+
+########## TWYTHON APP CONFIGURATION
+TWITTER_APP_KEY = 'RvWZvUVF8FjP6pasUbtc7mxQk'
+TWITTER_APP_SECRET = 'KkVoPHgtyDN0cmwL8k6dyzawxlGS94jOYl5IFXQg24sIfcA32b'
+TWITTER_ACCESS_TOKEN = u'AAAAAAAAAAAAAAAAAAAAAI5MYQAAAAAA%2FaTpbB5165m8%2FtX1seavdHD5jGQ%3Dx7hIqmfzXPsSzSd4vVlGNjLBqFYZf8TTjQoOUzXZBH1Wo9dBsL'
+########## END TWYTHON APP CONFIGURATION

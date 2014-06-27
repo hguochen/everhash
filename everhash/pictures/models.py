@@ -21,6 +21,8 @@ class PictureManager(models.Manager):
 	def album_pictures(self, album_object):
 		return self.get_query_set().album_pictures(album_object)
 
+	def get_tweet_ids(self):
+		return self.get_query_set().get_tweet_ids()
 
 class Picture(models.Model):
 	"""
@@ -33,6 +35,7 @@ class Picture(models.Model):
 	pub_date = models.DateTimeField('date_published', default=timezone.now()) # saved at UTC timezone
 	like_count = models.IntegerField(default=0)
 	owner = models.CharField(max_length=600) # name of the original picture owner
+	tweet_id = models.BigIntegerField(default=0)
 
 	objects = PictureManager()
 
@@ -51,3 +54,6 @@ class PictureQuerySet(QuerySet):
 	def album_pictures(self, album_object):
 		album = Album.objects.get(name=album_object)
 		return self.filter(album=album)
+
+	def get_tweet_ids(self):
+		return self.values('tweet_id')

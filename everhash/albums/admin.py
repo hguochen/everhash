@@ -20,6 +20,7 @@ class AlbumAdmin(admin.ModelAdmin):
 		('Date information', {'fields':['pub_date']}),
 		('Posted by', {'fields':['user']}),
 		('Default Picture', {'fields':['default_pic']}),
+		('Milestone', {'fields':['milestone']}),
 	]
 	inlines = [PictureInline]
 	list_display = ('name', 'pub_date', 'user')
