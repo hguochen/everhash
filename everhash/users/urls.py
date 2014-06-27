@@ -19,7 +19,7 @@ urlpatterns = patterns('',
    # that way it can return a sensible "invalid key" message instead of a
    # confusing 404.
    url(r'^activate/(?P<activation_key>\w+)/$', ActivationView.as_view(), name='registration_activate'),
-   url(r'^register/$', UsersRegistrationView.as_view(), name='registration_register'),
+   url(r'^register/$', UsersRegistrationView.as_view(template_name='reg/registration_form.html'), name='registration_register'),
    url(r'^register/complete/$', TemplateView.as_view(template_name='reg/registration_complete.html'),
        name='registration_complete'),
    url(r'^register/closed/$', TemplateView.as_view(template_name='reg/registration_closed.html'),

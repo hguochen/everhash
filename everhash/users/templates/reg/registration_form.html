@@ -4,7 +4,7 @@
 {% block title %}Sign up{% endblock %}
 
 {% block content %}   
-<h1 class="signupHeader">Sign up here, or <a href="">Login</a></h1>
+<h1 class="signupHeader">Sign up here, or <a href="{% url 'login' %}">Login</a></h1>
 <div class="login-or"><hr class="hr-or"></div>
 
 <form action="" method="POST">{% csrf_token %}

@@ -3,7 +3,9 @@
 from __future__ import absolute_import
 
 from os.path import join, normpath
+from os import environ
 
+# app imports
 from .base import *
 
 
@@ -15,10 +17,25 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ########## END DEBUG CONFIGURATION
 
+########## HOST CONFIGURATION
+# See: https://docs.djangoproject.com/en/1.5/releases/1.5/#allowed-hosts-required-in-production
+ALLOWED_HOSTS = ['localhost']
+########## END HOST CONFIGURATION
 
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Redirects all email to stdout
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', 'zxcasd123.')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
+EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'everhashchen@gmail.com')
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = environ.get('EMAIL_PORT', 587)
 ########## END EMAIL CONFIGURATION
 
 

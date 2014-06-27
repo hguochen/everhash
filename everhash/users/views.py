@@ -28,12 +28,12 @@ from settings.base import LOGIN_REDIRECT_URL
 class UsersRegistrationView(RegistrationView):
 	"""Sub class for user registration views"""
 	form_class = UsersRegistrationForm
-	success_url = None
+	success_url = None	
 
 @sensitive_post_parameters()
 @csrf_protect
 @never_cache
-def login(request, template_name='registration/login.html',
+def login(request, template_name='reg/login.html',
 	redirect_field_name=REDIRECT_FIELD_NAME,
 	authentication_form=None,
 	current_app=None, extra_content=None):
