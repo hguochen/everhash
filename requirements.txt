@@ -1,3 +1,13 @@
-# This file is here because many Platforms as a Service look for
-#	requirements.txt in the root directory of a project.
--r requirements/production.txt
+Django==1.6.5
+MySQL-python==1.2.5
+South==0.8.4
+boto==2.29.1
+django-common-helpers==0.6.0
+django-debug-toolbar==1.2.1
+django-registration==1.0
+oauthlib==0.6.3
+requests==2.1.0
+requests-oauthlib==0.4.0
+sqlparse==0.1.11
+twython==3.1.2
+wsgiref==0.1.2

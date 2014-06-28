@@ -31,6 +31,8 @@ class AlbumManager(models.Manager):
 	def get_album_names(self):
 		return self.get_query_set().get_album_names()
 
+	#def get_album(self, name):
+	#	return self.get_query_set().get_album(name)
 
 class Album(models.Model):
 	"""
@@ -72,3 +74,6 @@ class AlbumQuerySet(QuerySet):
 
 	def get_album_names(self):
 		return self.values('name')
+
+	#def get(self, name):
+	#	return self. get(name='name')

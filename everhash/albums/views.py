@@ -2,11 +2,13 @@
 # django imports
 from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
+from django.template import RequestContext
 
 # third-party app imports
 # app imports
 from models import Album
-
+from pictures.views import Picture
+from everhash.settings.base import S3_URL
 
 def add_album(new_album):
 	# get existing database albums
@@ -21,3 +23,12 @@ def add_album(new_album):
 		user = User.objects.get(username='hguochen')		
 		album = Album(user=user, name=new_album)
 		album.save()
+
+def view_album(request):
+	album = Album.objects.get(name='pear')
+	pictures = Picture.objects.album_pictures(album)
+	urls = []
+	for pic in pictures:
+		url = S3_URL + pic.album.name + "/" +pic.url
+		urls.append(url)
+	return render_to_response('album.html', {'urls':urls}, context_instance=RequestContext(request))

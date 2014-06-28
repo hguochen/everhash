@@ -14,11 +14,12 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/project.css' %}">
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <!-- This file store project specific CSS -->
-    <link href="{% static 'css/everhash.css' %}" rel="stylesheet">
-    
+    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">    
+    <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <link rel="stylesheet" href="css/bootstrap-image-gallery.min.css">
+
     <!-- Use this to quickly test CSS changes in a template,
         then move to everhash.css -->
     {% block extra_css %}{% endblock extra_css %}
@@ -68,8 +69,9 @@
 
     <div class="wrapper">
       <div class="main">
-        <h1>{% block page_title %}Everhash{% endblock page_title %}</h1>
-        {% block body %}{% endblock body %}
+        <div class="container top-margin">          
+          {% block body %}{% endblock body %}
+        </div>
       </div>
     </div> <!-- /container -->
     
@@ -107,8 +109,9 @@
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <!-- bootstrap -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>    
+    <script src="js/bootstrap-image-gallery.min.js"></script>
+    <script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
     <!-- place project specific Javascript in this file -->
     <script src="{% static 'js/everhash.js' %}"></script>
 

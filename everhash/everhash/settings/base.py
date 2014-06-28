@@ -4,7 +4,6 @@
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
-
 ########## PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
@@ -196,6 +195,8 @@ THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
     'registration',
+    'django_cron',
+    'djcelery',
 )
 
 # Apps specific for this project go here.
@@ -277,3 +278,14 @@ TWITTER_APP_KEY = 'RvWZvUVF8FjP6pasUbtc7mxQk'
 TWITTER_APP_SECRET = 'KkVoPHgtyDN0cmwL8k6dyzawxlGS94jOYl5IFXQg24sIfcA32b'
 TWITTER_ACCESS_TOKEN = u'AAAAAAAAAAAAAAAAAAAAAI5MYQAAAAAA%2FaTpbB5165m8%2FtX1seavdHD5jGQ%3Dx7hIqmfzXPsSzSd4vVlGNjLBqFYZf8TTjQoOUzXZBH1Wo9dBsL'
 ########## END TWYTHON APP CONFIGURATION
+
+########## CELERY APP CONFIGURATION
+import djcelery
+djcelery.setup_loader()
+
+BROKER_URL = "amqp://hguochen:zxcasd123.@localhost:8000/myvhost"
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_BEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+########## END CELERY APP CONFIGURATION

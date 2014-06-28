@@ -7,15 +7,14 @@ from django.views.generic import TemplateView
 
 # third-party app imports
 #app imports
-from views import index
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', index, name='index'),
-
+    url(r'^$', 'views.index', name='index'),
+    url(r'^album/$', 'albums.views.view_album', name='view_album'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

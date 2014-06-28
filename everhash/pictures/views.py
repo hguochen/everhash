@@ -14,15 +14,24 @@ from django.contrib.auth.models import User
 
 # third-party app imports
 from boto.s3.key import Key
+from boto.s3.connection import S3Connection
+
 # app imports
 from albums.models import Album
-from everhash.views import get_s3_bucket
 from tweets.views import search
 from models import Picture
 from everhash.settings.local import EMAIL_HOST_USER
 from pictures.signals import pic_save
+from everhash.settings.base import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_MEDIA_STORAGE_BUCKET
 
 def update_picture_database(album_name):
+	"""
+	Updates the picture database that has field name 'album_name'.
+
+	Performs a twitter REST API search with 'album_name' as a hashtag and retrive the new pictures from results to be added to Picture
+	database.
+	"""
+
 	# get results of a tweet search
 	hashtag = "#" + album_name # setup hashtag
 
@@ -33,7 +42,6 @@ def update_picture_database(album_name):
 	tweets_result = remove_duplicates(db_tweet_ids, tweets_result)
 	print len(tweets_result)
 	if len(tweets_result) > 0:
-		print "GONA SAVE!"
 		# get picture object from list of tweet_results
 		new_pictures = []		
 		for i in range(len(tweets_result)):	
@@ -54,14 +62,15 @@ def update_picture_database(album_name):
 		
 		# upload new_pictures list to s3 bucket		
 		upload_to_bucket(new_pictures, album_name)
-
+		print "New '%s' album images has been uploaded." % album_name
 		# upload contents to database
-			
+		i = 0
 		album = Album.objects.get(name=album_name) # get album object
 		if album != None:
 			for img in tweets_result:
-				pic = Picture(album=album, url=new_pictures[i], like_count=img[1], owner=img[2], tweet_id=img[3])
-				pic.save()	
+				pic = Picture(album=album, url=new_pictures[i][0], like_count=img[1], owner=img[2], tweet_id=img[3])
+				pic.save()
+				i += 1
 		abcd = Picture(album=album, url=new_pictures[0], like_count=img[1], owner=img[2], tweet_id=img[3])
 			
 		# fire off signal 
@@ -101,3 +110,11 @@ def remove_duplicates(database_tweet_ids, latest_tweets):
 		if latest_tweet_ids[i] not in data_tweed_ids:
 			final_tweets.append(latest_tweets[i])
 	return final_tweets
+
+def get_s3_bucket():
+	"""
+	Return a s3 bucket reference.
+	"""	
+	conn = S3Connection(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+	bucket = conn.get_bucket(AWS_MEDIA_STORAGE_BUCKET)
+	return bucket
