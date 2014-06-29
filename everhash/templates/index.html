@@ -4,14 +4,67 @@
 Everhash index page
 {% endcomment %}
 
-{% block extra_css %}{% endblock %}
+{% block extra_css %}
+<style>
+	.destacados{
+	    padding: 20px 10;
+		text-align: center;
+	}
+	.destacados > div > div{
+		padding: 10px;
+		border: 1px solid transparent;
+		border-radius: 4px;
+		transition: 0.2s;
+	}
+	.destacados > div:hover {
+		margin-top: -10px;
+		border: 1px solid rgb(200, 200, 200);
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+		background: rgba(200, 200, 200, 0.1);
+		transition: 0.5s;
+	}
+	/* Div box as link */
+	.span-link {
+		position:absolute; 
+	  	width:100%;
+	  	height:100%;
+	  	top:0;
+	  	left: 0;
+
+	  /* edit: added z-index */
+	  z-index: 1;
+	}
+    /* BACK TO TOP BUTTON */
+    .back-to-top {
+        cursor: pointer;
+        position: fixed;
+        bottom: 30px;
+        right:30px;
+        display:none;
+    }    
+</style>
+{% endblock %}
 
 {% block body %}
-
 	<div id="beebetaIntro" class="row">
 		<div class="col-md-12">
 			<h1>Everhash</h1>
 			<h1>Twitter hashtag images collected. </h1>
+			
+			<div class="row destacados">
+				{% for album in albums %}
+					<div class="col-md-3" style="padding-bottom:20px;">
+						<!--Sets the div box as a clickable link -->
+						<a href="{% url 'view_album' album.name %}"><span class="span-link"></span></a>
+						<img src="http://lorempixel.com/200/200/abstract/1/" alt="Texto Alternativo" class="img-circle img-thumbnail">
+						<h2>#{{ album.name }}</h2>
+					</div>
+					{% if forloop.counter|divisibleby:4 %}
+						<div class="clearfix"></div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			
 		</div>
-	</div>	
+	</div>
 {% endblock %}

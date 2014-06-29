@@ -197,6 +197,7 @@ THIRD_PARTY_APPS = (
     'registration',
     'django_cron',
     'djcelery',
+    'collage',
 )
 
 # Apps specific for this project go here.

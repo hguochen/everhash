@@ -1,6 +1,6 @@
 # std lib imports
 # django imports
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.models import User
 from django.template import RequestContext
 
@@ -24,11 +24,18 @@ def add_album(new_album):
 		album = Album(user=user, name=new_album)
 		album.save()
 
-def view_album(request):
-	album = Album.objects.get(name='pear')
-	pictures = Picture.objects.album_pictures(album)
-	urls = []
-	for pic in pictures:
-		url = S3_URL + pic.album.name + "/" +pic.url
-		urls.append(url)
-	return render_to_response('album.html', {'urls':urls}, context_instance=RequestContext(request))
+def view_album(request, album_name=None):
+	album_name = album_name.lower()
+	album = get_object_or_404(Album, name=album_name)
+	
+	if album != None:
+		pictures = Picture.objects.album_pictures(album)
+		pictureset = []
+		urls = []
+		for pic in pictures:			
+			url = S3_URL + pic.album.name + "/" +pic.url
+			urls.append(url)
+			pictureset.append([pic, url])			
+		context_instance = RequestContext(request, 
+										{'album':album_name, 'pictureset':pictureset, 'urls':urls})
+	return render_to_response('album.html', context_instance)

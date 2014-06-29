@@ -42,7 +42,7 @@ def search(query_term, count=100, until=None):
 	result = []
 	for tweet in tweets:	
 		for item in tweet['entities'].get('media', []):
-			try:
+			try:				
 				result.append([item['media_url'], tweet['favorite_count'], tweet['user']['screen_name'], tweet['id']])
 			except IndexError, KeyError:
 				continue

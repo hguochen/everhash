@@ -10,9 +10,9 @@ from pictures.models import Picture
 from albums.models import Album
 from everhash.settings.local import EMAIL_HOST_USER
 
-pic_save = Signal()
+send_email = Signal()
 
-@receiver(pic_save, sender=Picture)
+@receiver(send_email, sender=Picture)
 def picture_save_handler(sender, **kwargs):
 	picture_count = Picture.objects.filter(album=kwargs['instance'].album).count()
 	album = Album.objects.get(name=kwargs['instance'].album)

@@ -14,7 +14,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index', name='index'),
-    url(r'^album/$', 'albums.views.view_album', name='view_album'),
+    url(r'^album/(?P<album_name>\w+)/$', 'albums.views.view_album', name='view_album'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

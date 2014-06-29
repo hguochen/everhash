@@ -1,51 +1,100 @@
-{% extends 'base.html' %}
-
-{% comment %}
-Everhash index page
-{% endcomment %}
-
-{% block extra_css %}{% endblock %}
+{% extends 'base_album.html' %}
+{% block extra_css %}
+<style>
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right:30px;
+    display:none;
+    z-index: 1;
+}
+</style>
+{% endblock %}
 
 {% block body %}
 <div id="blueimp-gallery" class="blueimp-gallery">
-	    <!-- The container for the modal slides -->
-	    <div class="slides"></div>
-	    <!-- Controls for the borderless lightbox -->
-	    <h3 class="title"></h3>
-	    <a class="prev">‹</a>
-	    <a class="next">›</a>
-	    <a class="close">×</a>
-	    <a class="play-pause"></a>
-	    <ol class="indicator"></ol>
-	    <!-- The modal dialog, which will be used to wrap the lightbox content -->
-	    <div class="modal fade">
-	        <div class="modal-dialog">
-	            <div class="modal-content">
-	                <div class="modal-header">
-	                    <button type="button" class="close" aria-hidden="true">&times;</button>
-	                    <h4 class="modal-title"></h4>
-	                </div>
-	                <div class="modal-body next"></div>
-	                <div class="modal-footer">
-	                    <button type="button" class="btn btn-default pull-left prev">
-	                        <i class="glyphicon glyphicon-chevron-left"></i>
-	                        Previous
-	                    </button>
-	                    <button type="button" class="btn btn-primary next">
-	                        Next
-	                        <i class="glyphicon glyphicon-chevron-right"></i>
-	                    </button>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div><!--blueimp-gallery-->
-	<div id="links">
-	{% for url in urls %}	
-    <a href="{{ url }}" title="Banana" data-gallery>
-        <img src="{{ url }}" width="300" height="300" alt="Banana">
-    </a>
-    {% endfor %}
-    
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>                        
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--blueimp-gallery-->
+	<div id="beebetaIntro" class="row">
+		<h1><a href="{% url 'view_album' album %}">#{{ album }}</a></h1>
+	</div>
+	<div class="row destacados">
+		<div class="col-md-12">
+			<div id="links">
+			{% for pic,url in pictureset %}				
+					<div class="col-md-3" style="padding-top:20px;">				
+						<a href="{{ url }}" title="{{ pic.owner }}" data-gallery>
+						    <img src="{{ url }}" width="300" height="300" alt="{{ pic.owner }}">
+						</a>
+						<div class="caption">
+							<div style="text-align:center;">
+								<a href="https://twitter.com/{{ pic.owner }}" target="_blank">@{{ pic.owner }}</a>
+								<p>{{ pic.like_count }} Favorites</p>
+							</div>
+						</div>
+						{% if forloop.counter|divisibleby:4 %}
+							<div class="clearfix"></div>
+						{% endif %}
+					</div>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+	<br><br>
+    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
+{% endblock %}
+{% block extra_js %}
+<script>
+$(document).ready(function(){
+ $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
+    });
+    
+    $('#back-to-top').tooltip('show');
+});
+</script>
 {% endblock %}

@@ -24,6 +24,13 @@ class PictureManager(models.Manager):
 	def get_tweet_ids(self):
 		return self.get_query_set().get_tweet_ids()
 
+	def all_src_url(self):
+		return self.get_query_set().all_src_url()
+
+	def get_all_values(self, field):
+		return self.get_query_set().get_all_values(field)
+
+		
 class Picture(models.Model):
 	"""
 	Model fields for Picture. Picture model has a many to one relationship with Album.
@@ -31,11 +38,12 @@ class Picture(models.Model):
 	ie. One album can have 0 or many pictures.
 	"""
 	album = models.ForeignKey(Album)
-	url = models.CharField(max_length=600) # stores the url where the picture is stored
+	url = models.CharField(max_length=600) # stores the url where the picture is stored	
 	pub_date = models.DateTimeField('date_published', default=timezone.now()) # saved at UTC timezone
 	like_count = models.IntegerField(default=0)
 	owner = models.CharField(max_length=600) # name of the original picture owner
 	tweet_id = models.BigIntegerField(default=0)
+	src_url = models.CharField(max_length=600, default='NULL') # store source url location
 
 	objects = PictureManager()
 
@@ -57,3 +65,9 @@ class PictureQuerySet(QuerySet):
 
 	def get_tweet_ids(self):
 		return self.values('tweet_id')
+
+	def all_src_url(self):
+		return self.values('src_url')
+
+	def get_all_values(self, field):
+		return self.values(field)
