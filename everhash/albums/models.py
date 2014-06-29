@@ -20,10 +20,6 @@ class AlbumManager(models.Manager):
 	def desc_pub_date(self):
 		return self.get_query_set().desc_pub_date()
 
-	# get name of album
-	#def get_name(self):
-	#	return self.get_query_set().get_name(self.name)
-
 	# get all albums posted by a user
 	def get_user_posted_albums(self, user):
 		return self.get_query_set().get_user_posted_albums(user)
@@ -31,8 +27,6 @@ class AlbumManager(models.Manager):
 	def get_album_names(self):
 		return self.get_query_set().get_album_names()
 
-	#def get_album(self, name):
-	#	return self.get_query_set().get_album(name)
 
 class Album(models.Model):
 	"""
@@ -66,14 +60,8 @@ class AlbumQuerySet(QuerySet):
 	def desc_pub_date(self):
 		return self.filter(pub_date__year=timezone.now().year).order_by('-pub_date')
 
-	#def get_name(self, name):
-	#	return self.get(name=name)
-
 	def get_user_posted_albums(self, user):
 		return self.filter(user=user).order_by('-pub_date')
 
 	def get_album_names(self):
 		return self.values('name')
-
-	#def get(self, name):
-	#	return self. get(name='name')

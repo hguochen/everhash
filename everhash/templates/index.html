@@ -52,12 +52,17 @@ Everhash index page
 			<h1>Twitter hashtag images collected. </h1>
 			
 			<div class="row destacados">
-				{% for album in albums %}
+				{% for key,value in thumb_nail.items %}
 					<div class="col-md-3" style="padding-bottom:20px;">
 						<!--Sets the div box as a clickable link -->
-						<a href="{% url 'view_album' album.name %}"><span class="span-link"></span></a>
-						<img src="http://lorempixel.com/200/200/abstract/1/" alt="Texto Alternativo" class="img-circle img-thumbnail">
-						<h2>#{{ album.name }}</h2>
+						<a href="{% url 'view_album' key %}"><span class="span-link"></span></a>
+						<img src="{% if value != 'NONE' %}
+									{{ value }}
+									{% else %}
+										https://pbs.twimg.com/media/BrTUUwWCQAAzNjV.png
+									{% endif %}" 
+									alt="{{ key }}" style="height:200px;" class="img-circle img-thumbnail">
+						<h2>#{{ key }}</h2>
 					</div>
 					{% if forloop.counter|divisibleby:4 %}
 						<div class="clearfix"></div>

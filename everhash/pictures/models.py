@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models import Max
 
 # third-party app imports
 # app imports
@@ -30,7 +31,10 @@ class PictureManager(models.Manager):
 	def get_all_values(self, field):
 		return self.get_query_set().get_all_values(field)
 
-		
+	def get_most_popular(self, album_name):
+		return self.get_query_set().get_most_popular(album_name)
+
+
 class Picture(models.Model):
 	"""
 	Model fields for Picture. Picture model has a many to one relationship with Album.
@@ -61,7 +65,7 @@ class PictureQuerySet(QuerySet):
 
 	def album_pictures(self, album_object):
 		album = Album.objects.get(name=album_object)
-		return self.filter(album=album)
+		return self.filter(album=album).order_by('-like_count')
 
 	def get_tweet_ids(self):
 		return self.values('tweet_id')
@@ -71,3 +75,6 @@ class PictureQuerySet(QuerySet):
 
 	def get_all_values(self, field):
 		return self.values(field)
+
+	def get_most_popular(self, album_name):
+		return self.filter(album__name=album_name).order_by('-like_count')[0]

@@ -4,6 +4,35 @@
 
 {% block page_title %}Page Not found{% endblock page_title %}
 
-{% block content %}
-<p>This is not the page you were looking for.</p>
-{% endblock content %}
+{% block extra_css %}
+<style>	
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<div class="container">    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Oops!</h1>
+                <h2>Page Not Found</h2>
+                <div class="error-details">
+                    Sorry, an error has occured, Requested page not found!
+                </div>
+                
+                <img src="//i.imgflip.com/5r7ru.jpg" title="error 404"/>
+                <div class="error-actions">
+                    <a href="{% url 'index' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a><a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

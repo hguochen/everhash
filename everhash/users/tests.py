@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 # third-party app imports
 # app imports
 
-# Create your tests here.
-
 # Test guidelines:
 # If model has custom methods, you should test that with unit tests.
 # Same goes for custom views, forms, template tags, context processors, middleware, management commands, etc.
@@ -20,14 +18,14 @@ class UserTestCase(TestCase):
 		User.objects.create(username='12345', email='12345@12345.com', password='12345')
 		User.objects.create(email='noname@email.com', password='noname')
 
-	def test_user_created_1(self):
+	def test_user_created_with_alphabets(self):
 		apple = User.objects.get(username='apple')		
 		
 		self.assertEqual(apple.username, 'apple')
 		self.assertEqual(apple.email, 'apple@apple.com')
 		self.assertEqual(apple.password, 'apple')		
 
-	def test_user_created_2(self):
+	def test_user_created_with_numbers(self):
 		num = User.objects.get(username='12345')
 		
 		self.assertEqual(num.username, '12345')

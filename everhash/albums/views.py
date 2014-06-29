@@ -35,7 +35,7 @@ def view_album(request, album_name=None):
 		for pic in pictures:			
 			url = S3_URL + pic.album.name + "/" +pic.url
 			urls.append(url)
-			pictureset.append([pic, url])			
+			pictureset.append([pic, url])
 		context_instance = RequestContext(request, 
 										{'album':album_name, 'pictureset':pictureset, 'urls':urls})
 	return render_to_response('album.html', context_instance)
