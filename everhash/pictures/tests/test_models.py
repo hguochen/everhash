@@ -61,5 +61,4 @@ class PictureModelTests(TestCase):
 	def test_get_most_popular(self):
 		"""Test the get most popular picture of a hashtag"""
 		picture = Picture.objects.get_most_popular('apple')
-		print picture
 		self.assertEquals(picture.url , '20140630133233-45000935.jpg')

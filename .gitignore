@@ -18,7 +18,7 @@ build
 *.log
 
 # Pem files:
-i*.pem
+*.pem
 
 # DS_Store files:
 *.DS_Store
