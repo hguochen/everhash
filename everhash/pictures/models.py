@@ -47,7 +47,7 @@ class Picture(models.Model):
 	like_count = models.IntegerField(default=0)
 	owner = models.CharField(max_length=600, null=True, blank=True) # name of the original picture owner
 	tweet_id = models.BigIntegerField(default=0)
-	src_url = models.CharField(max_length=600, default='NULL') # store source url location
+	src_url = models.CharField(max_length=600, null=True, blank=True) # store source url location
 
 	objects = PictureManager()
 
