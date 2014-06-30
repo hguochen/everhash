@@ -27,4 +27,4 @@ def fetch_tweet_handler(sender, **kwargs):
 			print key
 			print hashtag
 			update_picture_database(hashtag)
-	#update_picture_database()
+	

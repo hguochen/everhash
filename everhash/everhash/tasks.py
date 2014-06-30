@@ -33,22 +33,3 @@ def update_picture_database_automater():
 	for album in album_names:
 		for name, hashtag in album:
 			update_picture_database(hashtag)
-
-"""
-def update_albums():
-	# get all album names
-	album_names = Album.objects.get_album_names()
-	update_picture_database()
-"""
-
-"""
-class Fetch_tweet_job(CronJobBase):
-	RUN_EVERY_MINS = 1
-
-	schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-	code = 'everhash.Fetch_tweet_job'
-
-	def do(self):
-		send_mail('cron_test', 'body is here.', 'everhash@gmail.com', ['hguochen@gmail.com'], fail_silently=False)
-
-"""

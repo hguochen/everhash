@@ -14,9 +14,17 @@ send_email = Signal()
 
 @receiver(send_email, sender=Picture)
 def picture_save_handler(sender, **kwargs):
+	"""
+	Handle the action when send_email() signal is fired. This handler retrieves album and 
+	pictures data from database and send album owner a notification email for every successive 
+	100 pictures in album until a maximum of 500 pictures in a album.
+	"""
+	# retrieve latest picture count and album milestone
 	picture_count = Picture.objects.filter(album=kwargs['instance'].album).count()
 	album = Album.objects.get(name=kwargs['instance'].album)
 
+	# if picture count is less than 500 in album and less than current milestone, send a
+	# notification email
 	if picture_count <= 500:
 		if picture_count >= album.milestone:
 			# set email contents
@@ -38,6 +46,8 @@ def picture_save_handler(sender, **kwargs):
 				bcc,
 				)
 			email.send()
+			# milestone reached. update to new milestone.
 			album.milestone += 100
 			album.save()
+	return
 			
