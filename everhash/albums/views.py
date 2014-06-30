@@ -75,7 +75,10 @@ def view_album(request, album_name=None):
 			url = S3_URL + pic.album.name + "/" +pic.url
 			urls.append(url)
 			pictureset.append([pic, url])
-		
+		# get sharing icon
+		icon = Picture.objects.get_most_popular(album_name)
+		icon = S3_URL + album_name + "/" + pic.url
+
 		context_instance = RequestContext(request, 
-										{'album':album_name, 'pictureset':pictureset, 'urls':urls})
+										{'album':album_name, 'pictureset':pictureset, 'icon':icon, 'urls':urls})
 	return render_to_response('album.html', context_instance)
