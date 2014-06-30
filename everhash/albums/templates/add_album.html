@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% comment %}
+Post Question 
+{% endcomment %}
+
+{% block extra_css%}
+<style>
+	.center {
+		display:block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
+{% endblock extra_css%}
+
+{% block body %}
+<div class="container top-margin">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">Add new album!</h1>
+			<br>
+			<p class="text-center">Add an album to your album lists by hashtag and we will collate the pictures automagically for you!</p>
+			<p class="text-center">You are welcome.</p>
+			<br>
+
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+			{% for hashtag in album_form %}
+			  	{% if album_form.errors %}
+			    	<p>Please correct the error{{ album_form.errors|pluralize }} below.</p>
+			  	{% endif %}
+				{% for error in errors %}
+					<p>{{ error }}</p>
+				{% endfor %}
+			  	
+			  	<div class="form-group">
+			    	{{ hashtag.errors }}
+			    	{{ hashtag }}
+			  	</div>
+			  	<div class="form-group top-margin">
+			    	<input type="submit" class="btn btn-success btn-lg center" value="Add to my album">
+			  	</div>
+			{% endfor %}
+			  	<div class="clear"></div>
+			</form>
+		</div><!--col-md-8-->
+	</div><!--row-->
+</div><!--container top-margin-->
+{% block extra_js %}
+{% endblock extra_js %}
+
+{% endblock %}

@@ -54,7 +54,10 @@
         <!-- Collect the nav links for toggling-->
         <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">            
-            {% if user.is_authenticated %}                      
+            <li>
+              <a href="{% url 'add_album' %}" class="btn btn-success btn-post" role="button"><strong>Add hashtag</strong></a>
+            </li>
+            {% if user.is_authenticated %}                  
               <li class="dropdown">
                 <a class="dropdown-toggle btn btn-default" data-toggle="dropdown">
                   <span class="glyphicon glyphicon-user user-icon"></span> {{ user.username }} <span class="caret" style=""></span>

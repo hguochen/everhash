@@ -27,6 +27,8 @@ class AlbumManager(models.Manager):
 	def get_album_names(self):
 		return self.get_query_set().get_album_names()
 
+	def get_user_albums_count(self, user):
+		return self.get_query_set().get_user_albums_count(user)
 
 class Album(models.Model):
 	"""
@@ -65,3 +67,6 @@ class AlbumQuerySet(QuerySet):
 
 	def get_album_names(self):
 		return self.values('name')
+
+	def get_user_albums_count(self, user):
+		return self.filter(user=user).count()

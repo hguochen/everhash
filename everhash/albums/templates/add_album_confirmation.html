@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% comment %}
+Post Question 
+{% endcomment %}
+
+{% block extra_css%}
+<style>
+	.center {
+		display:block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>
+{% endblock extra_css%}
+
+{% block body %}
+<div class="container top-margin">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="text-center">#{{ hashtag | capfirst }} Album Added!</h1>
+			<br>
+
+			<h4 class="text-center">Give us a minute to populate the album...</h4>
+			<h4 class="text-center">In the meanwhile, check out <a href="{% url 'index' %}">other albums</a>.</h4>
+			<br>
+		</div><!--col-md-12-->
+	</div><!--row-->
+</div><!--container top-margin-->
+{% block extra_js %}
+{% endblock extra_js %}
+
+{% endblock %}

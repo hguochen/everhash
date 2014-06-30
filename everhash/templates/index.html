@@ -47,16 +47,16 @@ Everhash index page
 
 {% block body %}
 	<div id="beebetaIntro" class="row">
-		<div class="col-md-12">
+		<div class="col-sm-12">
 			<h1>Everhash</h1>
 			<h1>Twitter hashtag images collected. </h1>
 			
 			<div class="row destacados">
 				{% for key,value in thumb_nail.items %}
-					<div class="col-md-3" style="padding-bottom:20px;">
+					<div class="col-sm-3" style="padding-bottom:20px;">
 						<!--Sets the div box as a clickable link -->
 						<a href="{% url 'view_album' key %}"><span class="span-link"></span></a>
-						<img src="{% if value != 'NONE' %}
+						<img src="{% if value != None %}
 									{{ value }}
 									{% else %}
 										https://pbs.twimg.com/media/BrTUUwWCQAAzNjV.png

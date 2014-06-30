@@ -22,8 +22,11 @@ from django.utils.text import slugify
 from registration.backends.default.views import RegistrationView
 
 #app imports
+from albums.utils import generate_album_thumbnail
+from albums.models import Album
 from forms import UsersRegistrationForm, UsersProfileForm, UsersPasswordChangeForm
 from settings.base import LOGIN_REDIRECT_URL
+from utils import get_user_albums_count, get_user_picture_count, get_user_albums, get_user_picture_count, remove_key
 
 class UsersRegistrationView(RegistrationView):
 	"""Sub class for user registration views"""
@@ -64,7 +67,7 @@ def login(request, template_name='reg/login.html',
 		form = authentication_form(request)
 
 	current_site = get_current_site(request)
-	
+
 	context = {
 		'form': form,
 		redirect_field_name: redirect_to,
@@ -78,9 +81,29 @@ def login(request, template_name='reg/login.html',
 @login_required
 def profile_view(request):
 	if request.user.is_authenticated():
+		# get user instance
 		user = User.objects.get(username=request.user)
+		
+		# put user usage stats into dictionary
+		stats = {}
+		stats['album_count'] = get_user_albums_count(user)
+		stats['picture_count'] = get_user_picture_count(user)
+		
+		# get all albums by users
+		albums = Album.objects.get_user_posted_albums(user)
+		# store album names in a dict
+		temp = {}
+		album_names = []
+		for i in range(len(albums)):	
+			temp['name'] = albums[i].name
+			album_names.append(temp)
+			temp = remove_key(temp, 'name')
 
-		return render_to_response('reg/account.html', {'user': user}, context_instance=RequestContext(request))
+		# generate thumbnail
+		thumbnail = generate_album_thumbnail(album_names)
+		print thumbnail
+		context_instance = RequestContext(request, {'user': user, 'stats':stats, 'thumb_nail':thumbnail})
+		return render_to_response('reg/account.html', context_instance)
 	else:
 		HttpResponseRedirect(reverse('login'))
 
@@ -93,7 +116,7 @@ def settings_view(request):
 										 'email': user_object.email,
 										 'first_name': user_object.first_name,
 										 'last_name': user_object.last_name}
-									])
+									])	
 	if request.method == 'POST':
 		if profile_formset.is_valid():
 			profile_formset.save()
@@ -104,3 +127,4 @@ def settings_view(request):
 		return HttpResponseRedirect(reverse('settings'))
 	else:
 		return render_to_response('reg/settings.html', {'profile_formset':profile_formset}, context_instance=RequestContext(request))
+

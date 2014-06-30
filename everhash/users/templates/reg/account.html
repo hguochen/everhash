@@ -33,7 +33,7 @@ Profile
       <br>
       <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-        <li><a href="#questions" data-toggle="tab">My Questions</a></li>
+        <li><a href="#questions" data-toggle="tab">My Albums</a></li>
       </ul><!--nav nav-tabs-->
 
       <div class="tab-content">
@@ -91,7 +91,7 @@ Profile
                   <h3 class="panel-title">Albums</h3>          
                 </div><!--panel-heading-->
                 <div class="panel-body">
-                  <h1 class="stats">{{ post_num }}</h1>
+                  <h1 class="stats">{{ stats.album_count }}</h1>
                   <span class="stats-info">albums</span>
                 </div><!--panel-body-->
               </div><!--panel panel-primary-->
@@ -99,12 +99,12 @@ Profile
 
             <div class="col-md-6 col-lg-6">
               <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Images</h3>                  
+                <div class="panel-heading">                  
+                  <h3 class="panel-title">Pictures</h3>                  
                 </div><!--panel-heading-->
                 <div class="panel-body">
-                  <h1 class="stats">{{ total_votes }}</h1>
-                  <span class="stats-info">images</span>
+                  <h1 class="stats">{{ stats.picture_count }}</h1>
+                  <span class="stats-info">Pictures</span>
                 </div>
               </div><!--panel panel-primary-->
             </div>
@@ -113,30 +113,21 @@ Profile
 
         <div class="tab-pane" id="questions">
           <div class="row">
-            {% for question in my_questions_set %}
-              <div class="col-md-4">
-                <div class="category category-radius category-{{ question.3 }}">
-                  <div class="shape"></div><!--shape-->
-                  <!--Sets the div box as a clickable link -->
-                  <a href="{% url 'poll' category=question.3 new_id=question.4 question_slug=question.5 %}"><span class="span-link"></span></a>
-                  <div class="category-content">                
-                    <h3 class="lead" style="height:60px;">
-                      {{ question.0|capfirst|truncatewords:5 }}
-                    </h3>
-                    
-                    {% if question.0.pic %}
-                      <img src="{{ MEDIA_URL }}media/{{ question.0.user.username }}/{{ question.0.pic}}" width="220" height="150" alt="">
-                    {% else %}
-                      <img src="{{ MEDIA_URL }}media/default.jpg" width="220" height="150" alt="">
-                    {% endif %}
-                    <p style="padding-top: 5px;">By <strong>{{ question.0.user.username }}</strong></p>
-                    <div class="clearfix"></div>
-                    <span class="number">{{ question.1 }}</span> choices
-                    <span class="number">{{ question.2 }}</span> votes
-                  </div><!--category-content-->
-                </div><!--category category-radius-->
-              </div><!--col-xs-3-->
-            {% endfor %}            
+            <br>
+            <br>
+            {% for key,value in thumb_nail.items %}
+              <div class="col-sm-3 text-center" style="padding-bottom:20px;">
+                <!--Sets the div box as a clickable link -->
+                <a href="{% url 'view_album' key %}"><span class="span-link"></span></a>
+                <img src="{% if value != None %}
+                      {{ value }}
+                      {% else %}
+                        https://pbs.twimg.com/media/BrTUUwWCQAAzNjV.png
+                      {% endif %}" 
+                      alt="{{ key }}" style="height:200px;" class="img-circle img-thumbnail">
+                <h2 style="text-align:center;">#{{ key }}</h2>
+              </div>
+            {% endfor %}        
         </div><!--row-->
         </div><!--questions-->
       </div><!--tab-content-->

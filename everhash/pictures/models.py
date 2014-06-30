@@ -34,6 +34,8 @@ class PictureManager(models.Manager):
 	def get_most_popular(self, album_name):
 		return self.get_query_set().get_most_popular(album_name)
 
+	def get_picture_count_by_album(self, album_object):
+		return self.get_query_set().get_picture_count_by_album(album_object)
 
 class Picture(models.Model):
 	"""
@@ -78,3 +80,6 @@ class PictureQuerySet(QuerySet):
 
 	def get_most_popular(self, album_name):
 		return self.filter(album__name=album_name).order_by('-like_count')[0]
+
+	def get_picture_count_by_album(self, album_object):
+		return self.filter(album=album_object).count()
