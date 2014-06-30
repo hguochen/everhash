@@ -13,12 +13,13 @@ from albums.models import Album
 from pictures.models import Picture
 from pictures.views import update_picture_database
 
+# Fetch tweet django signal
 fetch_tweet = Signal()
 
+# 
 @receiver(fetch_tweet)
-def fetch_tweet_handler(sender, **kwargs):	
-	print "AHA"
-	print "ADASd"
+def fetch_tweet_handler(sender, **kwargs):
+	"""event handler for fetch_tweet event"""
 	time.sleep(5)
 	# get all album names
 	album_names = Album.objects.get_album_names()

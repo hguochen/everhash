@@ -19,21 +19,27 @@ class PictureManager(models.Manager):
 	def get_query_set(self):
 		return PictureQuerySet(self.model)
 
+	# get pictures of given album and organize by decreasing like count
 	def album_pictures(self, album_name):
 		return self.get_query_set().album_pictures(album_name)
 
+	# get tweet id values
 	def get_tweet_ids(self):
 		return self.get_query_set().get_tweet_ids()
 
+	# get all src urls from database
 	def all_src_url(self):
 		return self.get_query_set().all_src_url()
 
+	# get all values of a given field
 	def get_all_values(self, field):
 		return self.get_query_set().get_all_values(field)
 
+	# get the most popular photo of the album
 	def get_most_popular(self, album_name):
 		return self.get_query_set().get_most_popular(album_name)
 
+	# get picture count by album
 	def get_picture_count_by_album(self, album_object):
 		return self.get_query_set().get_picture_count_by_album(album_object)
 

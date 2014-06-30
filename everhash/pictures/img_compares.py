@@ -7,7 +7,10 @@ import logging
 
 # app imports
 
-# Image comparison algorithms aimed to remove duplicates
+# This is a custom built image comparison library to compare the similarities of 2 file images.
+# This is based on a version of root mean square value comparison. 
+# In this case, we pixelate R G B values and give each an index.
+# Once R G B datas are indexed. we use histogram to organize the values to compare.
 
 def image_similarity_bands_via_numpy(filepath1, filepath2):
     """
@@ -105,6 +108,7 @@ def mkdir_p_filepath(path):
     mkdir_p(dirpath)
  
 def mkdir_p(path):
+    """Custom image file dirs"""
     import errno
     try:
         os.makedirs(path)

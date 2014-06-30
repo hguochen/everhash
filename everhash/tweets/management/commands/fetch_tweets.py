@@ -9,6 +9,12 @@ from django.core.management.base import NoArgsCommand, CommandError
 from albums.models import Album
 from pictures.views import update_picture_database
 
+# Custom manage.py command set
+# The custom command ./manage.py fetch_tweets pulls results from all twitter hashtag albums
+# and updates the picture database with new uploads.
+# fetch_tweets custom commands runs on linux cron job every 20minutes.
+# cron job has the following setup: 
+# */20 * * * * /filepath/to/env && ./manage.py fetch_tweets
 class Command(NoArgsCommand):
 	
 	help = "Fetches all hashtag tweets avilable in database when command is executed."
