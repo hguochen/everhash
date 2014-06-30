@@ -12,7 +12,7 @@ from everhash.settings.base import S3_URL
 
 def index(request):
 	if request.method == "GET":		
-		#update_picture_database('carnival')
+		#update_picture_database('apple')
 		
 		thumbnail = {}		
 		albums = Album.objects.values('name')
@@ -24,7 +24,7 @@ def index(request):
 				thumbnail[album['name']] = S3_URL + album['name'] + "/" + popular_img_url.url
 			except IndexError:
 				thumbnail[album['name']] = 'NONE'
-		print thumbnail
+		
 		context_instance=RequestContext(request,
 										{'albums':albums, 'thumb_nail':thumbnail})
 		return render_to_response('index.html', context_instance)

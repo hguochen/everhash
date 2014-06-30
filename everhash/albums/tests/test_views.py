@@ -7,10 +7,10 @@ from django.test.client import Client
 
 # third-party app imports
 # app imports
-from views import view_album
 
 
 class AlbumViewTests(TestCase):
+	fixtures = ['albums.json', 'users.json']
 	"""
 	Testing views for albums app.
 	"""
@@ -21,6 +21,11 @@ class AlbumViewTests(TestCase):
 		pass
 
 	def test_album_page_working(self):
-			"""Test album page working"""
-			response = self.client.get(reverse(view_album, kwargs={'album_name':'apple'}))
-			self.assertEquals(response.status_code, 200)
+		"""Test album page working"""
+		response = self.client.get(reverse('view_album', kwargs={'album_name':'apple'}))
+		self.assertEquals(response.status_code, 200)
+
+	def test_album_404_page_working(self):
+		"""Test invalid album get request"""
+		response = self.client.get('/album/ffdsa/')
+		self.assertEquals(response.status_code, 404)

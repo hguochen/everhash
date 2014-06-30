@@ -1,68 +1,46 @@
 [
 {
-    "pk": 20, 
+    "pk": 1, 
     "model": "albums.album", 
     "fields": {
         "default_pic": "", 
         "milestone": 100, 
-        "pub_date": "2014-06-29T12:31:04Z", 
+        "pub_date": "2014-06-30T05:19:33Z", 
         "user": 1, 
         "name": "apple"
     }
 },
 {
-    "pk": 21, 
+    "pk": 2, 
     "model": "albums.album", 
     "fields": {
         "default_pic": "", 
         "milestone": 100, 
-        "pub_date": "2014-06-29T12:31:04Z", 
-        "user": 1, 
-        "name": "pear"
-    }
-},
-{
-    "pk": 22, 
-    "model": "albums.album", 
-    "fields": {
-        "default_pic": "", 
-        "milestone": 100, 
-        "pub_date": "2014-06-29T12:31:04Z", 
-        "user": 1, 
-        "name": "orange"
-    }
-},
-{
-    "pk": 23, 
-    "model": "albums.album", 
-    "fields": {
-        "default_pic": "", 
-        "milestone": 100, 
-        "pub_date": "2014-06-29T12:31:04Z", 
+        "pub_date": "2014-06-30T05:19:33Z", 
         "user": 1, 
         "name": "carnival"
     }
 },
 {
-    "pk": 24, 
+    "pk": 3, 
     "model": "albums.album", 
     "fields": {
         "default_pic": "", 
         "milestone": 100, 
-        "pub_date": "2014-06-29T12:31:04Z", 
+        "pub_date": "2014-06-30T05:19:33Z", 
         "user": 1, 
         "name": "dogs"
     }
 },
 {
-    "pk": 25, 
+    "pk": 4, 
     "model": "albums.album", 
     "fields": {
         "default_pic": "", 
         "milestone": 100, 
-        "pub_date": "2014-06-29T14:25:23Z", 
+        "pub_date": "2014-06-30T05:19:33Z", 
         "user": 1, 
-        "name": "nopvn"
+        "name": "pear"
     }
 }
 ]

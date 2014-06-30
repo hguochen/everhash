@@ -19,8 +19,8 @@ class PictureManager(models.Manager):
 	def get_query_set(self):
 		return PictureQuerySet(self.model)
 
-	def album_pictures(self, album_object):
-		return self.get_query_set().album_pictures(album_object)
+	def album_pictures(self, album_name):
+		return self.get_query_set().album_pictures(album_name)
 
 	def get_tweet_ids(self):
 		return self.get_query_set().get_tweet_ids()
@@ -63,8 +63,8 @@ class PictureQuerySet(QuerySet):
 	Picture model predefined querysets
 	"""
 
-	def album_pictures(self, album_object):
-		album = Album.objects.get(name=album_object)
+	def album_pictures(self, album_name):
+		album = Album.objects.get(name=album_name)
 		return self.filter(album=album).order_by('-like_count')
 
 	def get_tweet_ids(self):
