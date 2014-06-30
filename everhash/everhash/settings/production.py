@@ -57,7 +57,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'everhash',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'zxcasd123.',
         'HOST': '',
         'PORT': '',
     }
