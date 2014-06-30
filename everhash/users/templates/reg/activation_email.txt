@@ -1,7 +1,7 @@
 {% load i18n %}
 {% trans "Activate account at" %} {{ site.name }}:
 
-Hi & Welcome,
+Welcome,
 
 Someone, hopefully you, signed up for a new account at Everhash using this email address. 
 
