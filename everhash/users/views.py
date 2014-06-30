@@ -64,7 +64,7 @@ def login(request, template_name='reg/login.html',
 		form = authentication_form(request)
 
 	current_site = get_current_site(request)
-
+	
 	context = {
 		'form': form,
 		redirect_field_name: redirect_to,

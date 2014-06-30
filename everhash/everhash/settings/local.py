@@ -42,6 +42,7 @@ EMAIL_PORT = environ.get('EMAIL_PORT', 587)
 EMAIL_USE_TLS = True
 ########## END EMAIL CONFIGURATION
 
+SITE_ID = 1
 
 ########## DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
