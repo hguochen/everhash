@@ -13,4 +13,4 @@ class AlbumForm(forms.Form):
 	hashtag = forms.CharField(max_length = 254, 
 							widget=forms.TextInput(attrs={'type':'text', 
 																'class': 'form-control', 
-																'placeholder':'#hashtag'}))
+																'placeholder':'Enter an album name here. eg. apple, orange etc.'}))
