@@ -12,16 +12,15 @@ from celery.task import task
 # app imports
 from pictures.views import update_picture_database
 from albums.models import Album
-from tweets.utils import scrapers
 
 logger = get_task_logger(__name__)
 
 # A periodic task that will run every minute (the symbol "*" means every)
 @periodic_task(run_every=(crontab(hour="0", minute="1", day_of_week="*")))
-def scraper_example():
+def scraper():
 	logger.info("Start task")
 	now = datetime.now()
-	result = scrapers.scraper_example(now.day, now.minute)
+	result = scrapers.scraper(now.day, now.minute)
 	logger.info("Task finished: result = %i" % result)
 
 @periodic_task(run_every=(crontab(hour="0", minute="20", day_of_week="*")))

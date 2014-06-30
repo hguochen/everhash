@@ -7,7 +7,7 @@ from os import environ
 
 # app imports
 from .base import *
-
+from everhash.settings.passwd import SECRET_EMAIL_PWD, SECRET_EMAIL
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
@@ -30,10 +30,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', 'zxcasd123.')
+EMAIL_HOST_PASSWORD = SECRET_EMAIL_PWD
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'everhashchen@gmail.com')
+EMAIL_HOST_USER = SECRET_EMAIL
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = environ.get('EMAIL_PORT', 587)

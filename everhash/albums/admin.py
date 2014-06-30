@@ -1,7 +1,3 @@
-from django.contrib import admin
-
-# Register your models here.
-
 # std lib imports
 # django imports
 from django.contrib import admin
@@ -15,6 +11,9 @@ from pictures.admin import PictureInline
 # Everhash admin interface
 
 class AlbumAdmin(admin.ModelAdmin):
+	"""
+	Admin field set displays.
+	"""
 	fieldsets = [
 		('Album', {'fields':['name']}),
 		('Date information', {'fields':['pub_date']}),

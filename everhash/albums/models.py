@@ -24,9 +24,11 @@ class AlbumManager(models.Manager):
 	def get_user_posted_albums(self, user):
 		return self.get_query_set().get_user_posted_albums(user)
 
+	# get album names by the name of album
 	def get_album_names(self):
 		return self.get_query_set().get_album_names()
 
+	# get number of albums that a user has
 	def get_user_albums_count(self, user):
 		return self.get_query_set().get_user_albums_count(user)
 
@@ -42,6 +44,7 @@ class Album(models.Model):
 	default_pic = models.CharField(max_length=600, blank=True, null=True) # collage pic for album	
 	milestone = models.IntegerField(default=100)
 
+	#custom objects for Album manageed by AlbumManager
 	objects = AlbumManager()
 	
 	class Meta:

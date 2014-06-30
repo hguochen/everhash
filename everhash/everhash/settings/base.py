@@ -1,8 +1,13 @@
 """Common settings and globals."""
 
-
+# std lib import
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
+# django import
+# 3rd party app import
+# app import
+from everhash.settings.passwd import SECRET_SECRET_KEY, SECRET_AWS_ACCESS_KEY_ID, SECRET_AWS_SECRET_ACCESS_KEY, SECRET_TWITTER_APP_KEY
+from everhash.settings.passwd import SECRET_TWITTER_APP_SECRET, SECRET_TWITTER_ACCESS_TOKEN
 
 ########## PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
@@ -108,7 +113,7 @@ STATICFILES_FINDERS = (
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 # Note: This key should only be used for development and testing.
-SECRET_KEY = r"ksp&*(c0*9)*f8_mv6yt1hz6$r#&p$wk6d5k!y5iry0_um_fiu"
+SECRET_KEY = SECRET_SECRET_KEY
 ########## END SECRET CONFIGURATION
 
 
@@ -247,8 +252,8 @@ LOGGING = {
 ########## END LOGGING CONFIGURATION
 
 ########## AWS
-AWS_ACCESS_KEY_ID = 'AKIAICXOR2SCWHXA7PSQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = SECRET_AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = SECRET_AWS_SECRET_ACCESS_KEY
 AWS_MEDIA_STORAGE_BUCKET = 'everhash-media'
 S3_URL = 'http://s3-ap-southeast-1.amazonaws.com/%s/' % AWS_MEDIA_STORAGE_BUCKET
 ########## END AWS
@@ -276,9 +281,9 @@ LOGIN_REDIRECT_URL = '/accounts/profile/'
 ########## END AUTH
 
 ########## TWYTHON APP CONFIGURATION
-TWITTER_APP_KEY = 'RvWZvUVF8FjP6pasUbtc7mxQk'
-TWITTER_APP_SECRET = 'KkVoPHgtyDN0cmwL8k6dyzawxlGS94jOYl5IFXQg24sIfcA32b'
-TWITTER_ACCESS_TOKEN = u'AAAAAAAAAAAAAAAAAAAAAI5MYQAAAAAA%2FaTpbB5165m8%2FtX1seavdHD5jGQ%3Dx7hIqmfzXPsSzSd4vVlGNjLBqFYZf8TTjQoOUzXZBH1Wo9dBsL'
+TWITTER_APP_KEY = SECRET_TWITTER_APP_KEY
+TWITTER_APP_SECRET = SECRET_TWITTER_APP_SECRET
+TWITTER_ACCESS_TOKEN = SECRET_TWITTER_ACCESS_TOKEN
 ########## END TWYTHON APP CONFIGURATION
 
 ########## CELERY APP CONFIGURATION

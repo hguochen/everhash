@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from os import environ
 
 from .base import *
+from everhash.settings.passwd import SECRET_EMAIL_PWD, SECRET_EMAIL, SECRET_SECRET_KEY
 
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.
@@ -32,10 +33,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-EMAIL_HOST_PASSWORD = 'zxcasd123.'
+EMAIL_HOST_PASSWORD = SECRET_EMAIL_PWD
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'everhashchen@gmail.com')
+EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', SECRET_EMAIL)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 EMAIL_PORT = environ.get('EMAIL_PORT', 587)
@@ -79,5 +80,5 @@ CACHES = {
 
 ########## SECRET CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = r"ksp&*(c0*9)*f8_mv6yt1hz6$r#&p$wk6d5k!y5iry0_um_fiu"
+SECRET_KEY = SECRET_SECRET_KEY
 ########## END SECRET CONFIGURATION

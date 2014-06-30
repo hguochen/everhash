@@ -1,6 +1,6 @@
 # std lib imports
 # django imports
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 
 # third-party app imports
@@ -21,3 +21,4 @@ def index(request):
 		context_instance=RequestContext(request,
 										{'albums':albums, 'thumb_nail':thumbnail})
 		return render_to_response('index.html', context_instance)
+	return render('index.html')
