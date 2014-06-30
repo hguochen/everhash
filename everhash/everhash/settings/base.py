@@ -199,9 +199,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     # Database migration helpers:
     'south',
-    'registration',
-    'django_cron',
-    'djcelery',
+    'registration',    
     'collage',
     'coverage',
 )
