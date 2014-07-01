@@ -377,3 +377,5 @@ These tests ensures correct querysets are written and model behaviors are as int
 
 Acknowledgements
 ================
+
+Thanks to Mikaela, Michelle Tang and Davide for the inspirations given to build eversnap. It is a really fun project!
