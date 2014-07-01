@@ -65,6 +65,7 @@ def view_album(request, album_name=None):
 	album = get_object_or_404(Album, name=album_name)
 	
 	if album != None:
+		
 		# get album pictures
 		pictures = Picture.objects.album_pictures(album)
 		
@@ -75,9 +76,13 @@ def view_album(request, album_name=None):
 			url = S3_URL + pic.album.name + "/" +pic.url
 			urls.append(url)
 			pictureset.append([pic, url])
+		
 		# get sharing icon
-		icon = Picture.objects.get_most_popular(album_name)
-		icon = S3_URL + album_name + "/" + pic.url
+		try:
+			icon = Picture.objects.get_most_popular(album_name)
+			icon = S3_URL + album_name + "/" + pic.url
+		except IndexError:
+			icon = ''		
 
 		context_instance = RequestContext(request, 
 										{'album':album_name, 'pictureset':pictureset, 'icon':icon, 'urls':urls})
