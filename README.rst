@@ -5,7 +5,7 @@ Everhash is a web application that crawls the twitter-universe by specific hasht
 
 A Django 1.6.5(python 2.7.5) project. This is part of an assignment done with [Eversnap](http://www.geteversnap.com/).
 
-The project is currently deployed and hosted live on Amazon EC2 Ubuntu(14.10) - Trusty Tahr at [http://ec2-54-179-136-56.ap-southeast-1.compute.amazonaws.com/](http://ec2-54-179-136-56.ap-southeast-1.compute.amazonaws.com/). Amazon S3 storage is also used to host media related contents,
+The project is currently deployed and hosted live on Amazon EC2 Ubuntu(14.10) [HERE](http://ec2-54-179-136-56.ap-southeast-1.compute.amazonaws.com/). Amazon S3 storage is also used to host media related contents,
 
 Project assumptions
 ===========
