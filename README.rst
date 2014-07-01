@@ -123,15 +123,20 @@ Under the second level, everhash/ folder contains all the applications and folde
 
 App specifications
 ==================
-###albums/
+###albums
 
 albums app stores album models and its related views on displaying the albums. It's models have the following fields:
 	
 	id - Primary key of the model
+	
 	user - ForeignKey for django auth user model
+	
 	name - name of the album in CharField.
+	
 	pub_date - date at which the album is created.
+	
 	default_pic - collage pic for the album.
+	
 	milestone - the subsequent pictures count for the album. (arbitrary field)
 	
 The model class `Album`, is supplemented with a proxy queryset class `AlbumManager` to provide custom querysets. `AlbumManager` class is a proxy for the `AlbumQuerySet` class which provides the actual querysets.
@@ -139,7 +144,9 @@ The model class `Album`, is supplemented with a proxy queryset class `AlbumManag
 urls.py is an app level url specification which has the following urls definitions:
 
 	url(r'^add/$', 'albums.views.add_album', name='add_album'),
+	
     url(r'^add/(?P<hashtag>\w+)/$', 'albums.views.add_confirm', name='add_confirm'),
+    
     url(r'^(?P<album_name>\w+)/$', 'albums.views.view_album', name='view_album'),
     
 Each of the urls are supported by its corresponding views, which forms the 3 main functions in views layer.
@@ -161,12 +168,15 @@ Each of the urls are supported by its corresponding views, which forms the 3 mai
 	Takes in an album name parameter and display the album page. Return a 404 page 	if album does not exist.
 	"""	
 	...
-		
+	
 Template layer are housed in-app under templates/ directory with the following HTML files.
 
 	base_album.html
+	
 	album.html
+	
 	add_album.html
+	
 	add_album_confirmation.html
 
 Forms layer houses 1 form, `AlbumForm` which allows users to add albums into their respective account.
