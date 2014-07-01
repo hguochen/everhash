@@ -11,6 +11,7 @@ def dictionary_store(album_objects):
 	"""
 	Takes in a list of album_objects and return a list of album_names in which each element is a dictionary.
 	"""
+
 	temp = {}
 	album_names = []
 	for i in range(len(album_objects)):
@@ -23,7 +24,6 @@ def get_user_albums_count(user_object):
 	"""
 	Takes in a user object and return the total number of albums that the user has.
 	"""
-
 	return Album.objects.get_user_albums_count(user_object)
 
 def get_user_picture_count(user_object):

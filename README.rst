@@ -5,6 +5,20 @@ Everhash is a web application that crawls the twitter-universe by specific hasht
 
 A Django 1.6.5(python 2.7.5) project. This is part of an assignment done with [Eversnap](http://www.geteversnap.com/).
 
+The project is currently deployed and hosted live on Amazon EC2 Ubuntu(14.10) - Trusty Tahr at [http://ec2-54-179-136-56.ap-southeast-1.compute.amazonaws.com/](http://ec2-54-179-136-56.ap-southeast-1.compute.amazonaws.com/). Amazon S3 storage is also used to host media related contents,
+
+Project assumptions
+===========
+1. Definition of a 'smart' automatic album is that the album should populate itself with contents with little or no user interference.
+2. 20 minutes featching time interval is not the optimal fetching solution from twitter. Twitter has a fetching window of 15minutes in which each windows allows 15 requests. The given fetching time is to allow demonstration of the ability to consume public APIs.
+3. 'User' in our case refers to the owner of the album who started the album itself and not visitors who browses the site and view albums.
+4. Storing BLOB data in databases such as MySQL is a bad practice in general and should not be used. In view of optimizations, everhash decides to store BLOB data in cloud storages such as S3 and save a reference to these storages.
+5. Sending email notifications is seen as a proof of concept to utilize cron jobs and django signals in the development of applications. At a greater picture, to demonstrate ability to schedule work tasks with little or no developer intervention in production environments.
+6. Duplicate photos would mean the same photo rendered without any form of altering or any application of filters. A picture sent by two different individuals using different filters are seen as two entirely different photos.
+7. Accessing REST API to retrieve photos means with some knowledge of the photo, such as its url, we are able to retrieve the actual photo contents.
+8. The test to show data structure through REST API is demonstrated through accessing an album page itself. ie. If an album has the name 'apple', the way to retrieve the apple album through everhash is with the URL http://HOST/album/apple.
+9. Automated testing are in place to demonstrate the ability to operate in a test driven development setup.
+
 To use this project follow these steps:
 
 #. Create your working environment
@@ -18,9 +32,13 @@ should replace this name with the actual name of your project.*
 
 Working Environment
 ===================
+Eversnap is built with the Linux(MacOS), Apache server for deployment, MySQL database with innoDB and Python programming language. A LAMP stack in short.
+
 [Virtualenv](https://pypi.python.org/pypi/virtualenv) is used to separate the dependencies between the operating environment and application's environment.
 Version control 
 [Git](http://git-scm.com/) is used to mark development milestones.
+
+
 
 Virtualenv Only
 ---------------
@@ -95,6 +113,13 @@ Project Template
 ======================
 Everhash adopts two scoops django project template structure. You can check out the awesome two scoops template [here](https://github.com/twoscoops/django-twoscoops-project).
 
+Everhash application is essentially the sum of 4 app implementations, mainly
+
+* users - to handle authentication
+* pictures - to handle all picture objects and related functions/methods
+* albums - to handle all album objects and related functions/methods
+* tweets - to handle all interactions with twitter APIs
+* collage - to handle all image manipulation techniques.
 
 App structure
 ======================
@@ -299,6 +324,56 @@ Tweets app handles the interaction between twitter and everhash. Mainly the fetc
 Management command folder has a fetch_tweets.py file which indicates the custom ./manage.py fetch_tweets command. 
 
 The views layer contains 1 main method search() to search for a given hashtag using REST API and appends the relevant result to a list to be processed.
+
+users
+-----
+Everhash is exploring to become a Saas application to provide users with timely collated twitter media contents. Therefore authentication is implemented to test drive this concept's popularity.
+
+Users app sub classes the django authentication module and implements custom authentication, model fields, formsets, views to suit the application's needs.
+
+User can perform the following functions with the application:
+
+	-registration()
+	
+	- login()
+	
+	- logout()
+	
+	- password_change()
+	
+	- password_reset()
+	
+	- email_activation()
+	
+Each list of actions are supported through a RESTful API and provides the user with page templates in views. 
+
+2 factor authentication is implemented and requires the user to submit the correct email in order to register a user on the app.
+
+Testing
+=======
+Testing is performed for all views layer and models layers of each app.
+
+[Coverage](https://pypi.python.org/pypi/coverage) third party app is used to generate the extent of app tests and leads the direction for app testings.
+
+View album and pictures tests are done at 
+
+	albums/tests/test_views.py 
+	
+and 
+
+	everhash/tests/test_views.py. 
+	
+These tests ensures client facing parts are tested for correctness of execution.
+
+Model integrity and querysets tests are done at 
+
+	albums/test/test_models.py 
+
+and 
+
+	users/test/test_models.py. 
+	
+These tests ensures correct querysets are written and model behaviors are as intended.
 
 Acknowledgements
 ================
