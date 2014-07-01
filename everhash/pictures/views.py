@@ -123,5 +123,8 @@ def upload_to_bucket(pic_info_list, album_name):
 			new_key.key = album_name + "/" + img[0]
 			new_file = File(img[1])
 			new_key.set_metadata('Content-Type', img[2])
+
+			# upload to bucket
 			new_key.set_contents_from_file(new_file, rewind=True)			
 			new_key.set_acl('public-read')	
+	return

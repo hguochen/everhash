@@ -123,7 +123,40 @@ Under the second level, everhash/ folder contains all the applications and folde
 
 App specifications
 ==================
-###albums
+everhash
+--------
+Main app of the project. Multiple setting files are housed under the settings sub-folder to cater to different operating environments. 
+	
+	everhash/
+	
+		settings/
+			
+			base.py
+			
+			local.py
+			
+			passwd.py *
+			
+			production.py
+			
+			test.py
+			
+passwd.py keeps sensitive informations such as secret keys and are kept out of the version control for obvious reasons.
+
+urls in this folder forms the base urls for the project. urls.py has the following definitions:
+
+	url(r'^$', 'views.index', name='index'),
+
+	url(r'^admin/', include(admin.site.urls)),
+
+	url(r'^album/', include('albums.urls')),
+
+	url(r'^accounts/', include('users.urls')),
+			
+Extensions after album or accounts urls goes to its corresponding sub-urls housed in its respective app. Only index view is defined in the views layer. This lightweight approach in the main app can be viewed as a funnel in which other apps provide contents through the funnel. It is generally good to have thin view layers and fat models, and utility functions.
+
+albums
+------
 
 albums app stores album models and its related views on displaying the albums. It's models have the following fields:
 	
@@ -181,10 +214,91 @@ Template layer are housed in-app under templates/ directory with the following H
 
 Forms layer houses 1 form, `AlbumForm` which allows users to add albums into their respective account.
 
+Admin uses django admin system which displays all of its attribute fields and inline pictre objects associated with the album.
+
+collages
+--------
+Collages app takes in a series of pictures and generates a collage with a custom built library housed in views layer. Collage app needs the actual image file contents to be accessible in order to generate a combined collage. Thus, the models layer does the unconventional thing that actually has a ImageField field which stores BLOB data in the database. 
+
+To prevent unnecessary bloating of database, once collages are generated, the images are removed from the database. Since picture urls are already stored in the pictures model. Image contents can be retrieved and processed on demand. 
+
+Views layer houses the following main functions that builds the actuall collage:
+
+	def img_read(text_line):
+	"""
+	Read the image information from file and return the collage information as a list of image lists.
+	"""
+	
+	def img_copy(info, bkg) :
+	"""
+	Inserts the image described by imagelist into the bkg image using the parameters in the image list.
+	"""
+	
+	def collage_read_file(file_name):
+	"""
+	Reads collage information from a text file and returns the collage information as a list of image lists.
+	"""
+	
+	def collage_read_image(collage_set):
+	"""
+	Reads the picture data using the filenames stored in the collage(list of image lists) and stores the picture data in the 
+	last element of each of the image lists.
+	"""
+	
+	def collage_build(collage):
+	"""
+	Creates a blank background image and places each image in the collage background.
+	Returns a background image.
+	"""
+	
+	def collage_rebuild(collage, bkg):
+	"""
+	Rebuilds the collage given an existing collage and background.
+	"""
+
+The collage app functions like a utility module that manipulates images and send the outcome to S3 storage and its relevant url to albums storage.
+
+pictures
+------
+pictures app stores pictures object and its associated functions and methods. models layer in the app has the following fields:
+
+	id - primary key of the model
+	
+	album - ForeignKey field to albums object
+	
+	url - url location of the picture, which is stored in s3.
+	
+	pub_date - date to which the picture is saved.
+	
+	like_count - the number of favorites associated with the picture in twitter. note that if multiple pictures are in the same tweet, they share the same number of likes.
+	
+	owner - twitter user who posted the original tweet picture.
+	
+	tweet_id - id of the tweet from which the picture comes from.
+	
+	src_url - source url form which the picture is from.
+	
+The model class `Picture`, is supplemented with a proxy queryset class `PictureManager` to provide custom querysets. `PictureManager` class is a proxy for the `PictureQuerySet` class which provides the actual querysets.
+
+picture app has a img_compares module which does image comparisons between 2 file images and checks for percentage similarity between the 2 images. Purpose of this image compare module is to remove image duplicates from a set of tweet images. 
+
+Image comparison is based on a version of root mean square value comparison. In this case, we give each set of RGB values an index and organizes the set of indexes of an image by histogram. We then compare the histogram results. Returned result of close to 0 would indicate the 2 images are most likely the same. However, for some versions of picture effects, results may vary.
+
+pictures app registers a send_email django signal which fires off once an album has reached its successive 100 pictures until the albm has reached 500 picture count. The signal is emitted after every new save to the database and check for album counts. In turn, picture saves are routinely performed with django custom commands and linux cron jobs.
+
+Views layer in pictures app serves 1 main function, update_picture_database which periodically updates the database with new pictures of each album. 
+
+this is achieved by a cron job which is run every 20minutes. the cron job looks like the following:
+
+	*/20 * * * * cd /path/to/project/level/dir && source ENV/bin/activate && ./manage.py fetch_tweets
+
+tweets
+-----
+Tweets app handles the interaction between twitter and everhash. Mainly the fetching of hashtag tweets. tweets app pulls JSON data from twitter through its REST API v1.1 at every 20 minutes interval. Since twitter REST API v1.1. Rate limiting window has decreased to 15minute intervals and you are allowed to make at most 15 requests during each window. This figure puts everhash well below its optimal request rate and ensures each request is bound for success. 
+
+Management command folder has a fetch_tweets.py file which indicates the custom ./manage.py fetch_tweets command. 
+
+The views layer contains 1 main method search() to search for a given hashtag using REST API and appends the relevant result to a list to be processed.
+
 Acknowledgements
 ================
-
-- Many thanks to Randall Degges for the inspiration to write the book and django-skel.
-- All of the contributors_ to this project.
-
-.. _contributors: https://github.com/twoscoops/django-twoscoops-project/blob/master/CONTRIBUTORS.txt
