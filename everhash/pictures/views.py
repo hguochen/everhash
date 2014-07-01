@@ -21,8 +21,8 @@ from albums.models import Album
 from tweets.views import search
 from models import Picture
 from everhash.settings.local import EMAIL_HOST_USER
-from pictures.signals import send_email
 from utils import get_s3_bucket, remove_duplicates
+from .signals import send_email
 
 
 def update_picture_database(album_name):
@@ -32,12 +32,13 @@ def update_picture_database(album_name):
 	Performs a twitter REST API search with 'album_name' as a hashtag and retrive the new pictures from results to be added to Picture
 	database.
 	"""
+
 	hashtag = "#" + album_name
 	# 'tweets_result' list has the following contents: [media_url, favorite_count, user_screen_name, tweet_id]
 	tweets_result = search(hashtag)
 
 	# remove results that already exists in database
-	pivots = ['tweet_id', 'src_url'] # ADD IN MEDIA_URL LATER
+	pivots = ['tweet_id', 'src_url']
 	print "Result tweets has %d results BEFORE duplicate removal." % len(tweets_result)
 	for pivot in pivots:		
 		if len(tweets_result) <= 0:
@@ -82,6 +83,7 @@ def generate_img_filename(img_url):
 	"""
 	Takes in an image file url and returns a new image name.
 	"""
+
 	random_number = randint(1,100000000) # append to end of 'img_string' to ensure unique img_name. chance of name collision is less than 1 in 100mil.
 	
 	temp_name = urlparse(img_url).path.split('/')[-1]
@@ -95,9 +97,12 @@ def get_img_content(img_url, new_name):
 	Get image contents from image file url and return image contents in a list in the format:
 	[new_img_name, File(temp_img), content_type]
 	"""
+	
 	temp_img = NamedTemporaryFile(delete=True)
 	pic = urllib2.urlopen(img_url)
 	content_type = pic.info().type
+	
+	# read and write pic data into var
 	temp_img.write(pic.read())
 	temp_img.flush()
 	file_content = [new_name, File(temp_img), content_type]
@@ -109,6 +114,7 @@ def upload_to_bucket(pic_info_list, album_name):
 
 	pic_info_list has a list structure of [[img_name, img_content, content_type]]
 	"""
+
 	bucket = get_s3_bucket()
 	if bucket:
 		for img in pic_info_list:

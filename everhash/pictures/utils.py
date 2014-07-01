@@ -28,11 +28,12 @@ def get_s3_bucket():
 def remove_duplicates(latest_tweets, pivot):
 	"""
 	Compare database_sets and latest_tweets, remove duplicates from 'latest_tweets' list if there's a tweet id match
-	"""	
-	# remove duplicates between tweet result and existing database result
-	# perform duplicate removals by comparing pivots:
-	# 1. tweet_id
-	# 2. src_url
+	remove duplicates between tweet result and existing database result
+	perform duplicate removals by comparing pivots:
+		1. tweet_id
+		2. src_url
+	
+	"""
 	
 	db_fields = Picture.objects.get_all_values(pivot)
 	#db_src_urls = Picture.objects.get_src_url()  ENABLE AFTER DATABASE RESET AND POPULATED
@@ -65,6 +66,7 @@ def remove_duplicate_file(latest_tweets):
 
 	This function should be used to distinguish images which have different urls but the same file contents.
 	"""
+	
 	result = []
 	hashed_url = []
 	for i in range(len(latest_tweets)):

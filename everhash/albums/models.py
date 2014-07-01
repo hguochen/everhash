@@ -13,6 +13,7 @@ class AlbumManager(models.Manager):
 	"""
 	Album model manager class with proxy querysets
 	"""
+
 	def get_query_set(self):
 		return AlbumQuerySet(self.model)
 
@@ -32,12 +33,14 @@ class AlbumManager(models.Manager):
 	def get_user_albums_count(self, user):
 		return self.get_query_set().get_user_albums_count(user)
 
+
 class Album(models.Model):
 	"""
 	Model fields for Album. Album model has a many to one relationship with User.
 
 	ie. One user can have 0 or many albums.
 	"""
+
 	user = models.ForeignKey(User)
 	name = models.CharField(max_length=100)
 	pub_date = models.DateTimeField('date published', default=timezone.now()) # saved at UTC timezone
@@ -62,6 +65,7 @@ class AlbumQuerySet(QuerySet):
 	"""
 	Album model predefined querysets:
 	"""
+	
 	def desc_pub_date(self):
 		return self.filter(pub_date__year=timezone.now().year).order_by('-pub_date')
 

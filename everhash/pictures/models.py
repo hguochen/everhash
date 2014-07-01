@@ -49,6 +49,7 @@ class Picture(models.Model):
 
 	ie. One album can have 0 or many pictures.
 	"""
+	
 	album = models.ForeignKey(Album)
 	url = models.CharField(max_length=600, null=True, blank=True) # stores the url where the picture is stored	
 	pub_date = models.DateTimeField('date_published', default=timezone.now()) # saved at UTC timezone

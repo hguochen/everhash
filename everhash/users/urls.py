@@ -8,8 +8,8 @@ from django.views.generic import TemplateView
 from registration.backends.default.views import ActivationView
 
 # app imports
-from views import UsersRegistrationView,login, profile_view, settings_view
-from forms import UsersAuthenticationForm, UsersPasswordResetForm, UsersSetPasswordForm, UsersPasswordChangeForm
+from .views import UsersRegistrationView,login, profile_view, settings_view
+from .forms import UsersAuthenticationForm, UsersPasswordResetForm, UsersSetPasswordForm, UsersPasswordChangeForm
 
 urlpatterns = patterns('',
     url(r'^activate/complete/$', TemplateView.as_view(template_name='reg/activation_complete.html'),

@@ -11,6 +11,10 @@ from registration.forms import RegistrationFormUniqueEmail
 
 
 class UsersRegistrationForm(RegistrationFormUniqueEmail):
+	"""
+	Generates a user registration form.
+	"""
+	
 	username = forms.RegexField(regex=r'^[\w.@+-]+$',
                                 max_length=30,
                                 label=_("Username"),
@@ -22,6 +26,10 @@ class UsersRegistrationForm(RegistrationFormUniqueEmail):
 
 
 class UsersAuthenticationForm(AuthenticationForm):
+	"""
+	Generates a user authentication form.
+	"""
+
 	username = forms.CharField(max_length = 254, widget=forms.TextInput(attrs={'type':'text', 'class': 'form-control', 'placeholder':'Username'}))
 	password = forms.CharField(max_length = 100, label=_("Password"), widget=forms.PasswordInput(attrs={'type':'password', 'class' : 'form-control', 'placeholder': 'Password'}))
 
@@ -30,6 +38,7 @@ class UsersPasswordResetForm(PasswordResetForm):
 	"""
 	Generates a one-use only link for resetting password and sends to the users' specified email
 	"""
+
 	email = forms.EmailField(label=_("Email address"), widget=forms.TextInput(attrs={'type':'text', 'class' : 'form-control', 'placeholder': 'Email'}))
 
 
@@ -37,6 +46,7 @@ class UsersSetPasswordForm(SetPasswordForm):
 	"""
 	Sub class SetPasswordForm that lets a user set his/her password without entering the old password
 	"""
+
 	new_password1 = forms.CharField(max_length = 100, label=_("New password:"), widget=forms.PasswordInput(attrs={'type':'password', 'class' : 'form-control'}))
 	new_password2 = forms.CharField(max_length = 100, label=_("Confirm password:"), widget=forms.PasswordInput(attrs={'type':'password', 'class' : 'form-control'}))
 
@@ -45,6 +55,7 @@ class UsersPasswordChangeForm(UsersSetPasswordForm):
 	"""
 	Sub class PasswordChangeForm that lets a user change his/her password by entering their old password
 	"""
+
 	old_password = forms.CharField(max_length = 100, label=_("Old password:"), widget=forms.PasswordInput(attrs={'type':'password', 'class' : 'form-control'}))
 
 	def __init__(self, *args, **kwargs):
@@ -55,7 +66,8 @@ class UsersPasswordChangeForm(UsersSetPasswordForm):
 class UsersProfileForm(forms.ModelForm):
 	"""
 	Custom form that lets users change his/her personal information.
-	"""	
+	"""
+	
 	username = forms.RegexField(required=True, regex=r'^[\w.@+-]+$',
                                 max_length=30,
                                 label=_("Username"),

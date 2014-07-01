@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Get twitter hashtag images here.">
     <meta name="author" content="GuoChen">
+    
     {% block opengraph %}
     <!-- Open Graph Data -->
     <meta name="og:title" property="og:title" content="Everhash" />
@@ -15,16 +16,14 @@
     <meta property="og:image" property="og:image" content="https://pbs.twimg.com/media/BrTUUwWCQAAzNjV.png"/>
     <meta name="og:description" property="og:description" content="" />
     <meta name="og:site_name"property="og:site_name" content="Everhash" />
-    {% endblock opengraph %}
-    <!-- Le styles -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    {% endblock opengraph %}    
     
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- This file store project specific CSS -->
     <link rel="stylesheet" href="{% static 'css/project.css' %}">
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}">    
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}"> 
     <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
     <link rel="stylesheet" href="css/bootstrap-image-gallery.min.css">
 
@@ -78,50 +77,45 @@
           </ul>
         </nav>
       </div><!--container-->
-    </header>
+    </header><!--navbar navbar-inverse -->
 
     <div class="wrapper">
       <div class="main">
         <div class="container top-margin">          
           {% block body %}{% endblock body %}
-        </div>
-      </div>
+        </div><!--container top-margin-->
+      </div><!--main-->
     </div> <!-- /container -->
     
     <footer class="footer">
-    <div class="container">
-      <div class="row">
-        
-        <div class="col-md-2">
-          <strong>About</strong>
-          <ul>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <strong>About</strong>
+            <ul>
               <li>Done by:</li>
               <li><a href="http://hguochen.com">GuoChen</a></li>
-          </ul>
-        
-        </div>
-        <div class="col-md-2">
-          
-          <strong></strong>
-          <ul>
-            <li><a href = ""></a></li>
-          </ul>
-        
-        </div>
-        <div class="col-md-2">
-          <strong></strong>
-          <ul>
-            <li><a href = "#"></a></li>
-            <li><a href = "" target="_tab"></a></li>
-          </ul>        
-        </div>
-
-        <div class="col-md-3"></div>
-        <div class="col-md-3 copyright">          
-          <p>&copy;2014 Everhash&trade;</p>
-        </div>
-      </div><!--row-->
-    </div><!--container-->
+            </ul>
+          </div>          
+          <div class="col-md-2">
+            <strong></strong>
+            <ul>
+              <li><a href = ""></a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <strong></strong>
+            <ul>
+              <li><a href = "#"></a></li>
+              <li><a href = "" target="_tab"></a></li>
+            </ul>        
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-3 copyright">          
+            <p>&copy;2014 Everhash&trade;</p>
+          </div>
+        </div><!--row-->
+      </div><!--container-->
     </footer>
     
     <!-- jQuery -->

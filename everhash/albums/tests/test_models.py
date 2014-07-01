@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 
 # third-party app imports
 # app imports
-from albums.models import Album
+from .models import Album
+
 
 class AlbumModelTests(TestCase):
 	fixtures = ['albums.json', 'users.json']
@@ -27,6 +28,7 @@ class AlbumModelTests(TestCase):
 		...
 	]
 	"""
+	
 	def setUp(self):
 		pass
 

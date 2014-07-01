@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # third-party app imports
 # app imports
-from models import Picture
+from .models import Picture
 
 # Picture admin interface
 

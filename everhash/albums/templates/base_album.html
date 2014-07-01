@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% comment %}
 Everhash index page
 {% endcomment %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/album.css' %}">
+{% endblock extra_css %}
+
 {% block body %}{% endblock %}
+
+{% block extra_js %}
+	<script src="{% static 'js/scroll.js' %}"></script>
+{% endblock %}

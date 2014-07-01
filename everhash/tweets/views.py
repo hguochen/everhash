@@ -15,6 +15,7 @@ def authenticate():
 
 	Returns a Twython instance which allows Twitter REST API calls
 	"""
+
 	return Twython(TWITTER_APP_KEY, access_token=TWITTER_ACCESS_TOKEN)
 
 def search(query_term, count=100, until=None):
@@ -33,6 +34,7 @@ def search(query_term, count=100, until=None):
 	
 	Returns a list of list with the following parameters within list - [media_url, favorite_count, screen_name, tweet_id]
 	"""
+
 	# return a twitter instance
 	twitter = authenticate()
 
@@ -40,11 +42,14 @@ def search(query_term, count=100, until=None):
 	search_results = twitter.search(q=query_term, count=count, until=until)	
 	tweets = search_results['statuses']
 	result = []
-	for tweet in tweets:	
+	for tweet in tweets:
 		for item in tweet['entities'].get('media', []):
-			try:				
+			try:
+				# retrieve the relevant results and store them in a list
+				# list storage is easy for future modifications		
 				result.append([item['media_url'], tweet['favorite_count'], tweet['user']['screen_name'], tweet['id']])
 			except IndexError, KeyError:
+				# capture null values in some tweets and discards them if any of the values is not present.
 				continue
 	return result
 	

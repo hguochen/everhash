@@ -1,1 +1,38 @@
-<h1>Whoops!</h1>
+{% extends "base.html" %}
+
+{% block title %}Server Error{% endblock %}
+
+{% block page_title %}Server Error{% endblock page_title %}
+
+{% block extra_css %}
+<style>	
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+</style>
+{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<div class="container">    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Congrats!</h1>
+                <h2>You broke us.</h2>
+                <div class="error-details">
+                    While we try to pick up the pieces, if you could drop us a mail at everhashchen@gmail.com on the error that would work wonders.
+                </div>
+                
+                <img src="//i.imgflip.com/5r7ru.jpg" title="error 404"/>
+                <div class="error-actions">
+                    <a href="{% url 'index' %}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a><a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

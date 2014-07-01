@@ -6,8 +6,8 @@ from sys import path
 # django import
 # 3rd party app import
 # app import
-from everhash.settings.passwd import SECRET_SECRET_KEY, SECRET_AWS_ACCESS_KEY_ID, SECRET_AWS_SECRET_ACCESS_KEY, SECRET_TWITTER_APP_KEY
-from everhash.settings.passwd import SECRET_TWITTER_APP_SECRET, SECRET_TWITTER_ACCESS_TOKEN
+from .passwd import SECRET_SECRET_KEY, SECRET_AWS_ACCESS_KEY_ID, SECRET_AWS_SECRET_ACCESS_KEY, SECRET_TWITTER_APP_KEY
+from .passwd import SECRET_TWITTER_APP_SECRET, SECRET_TWITTER_ACCESS_TOKEN
 
 ########## PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:

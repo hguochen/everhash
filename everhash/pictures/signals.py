@@ -6,7 +6,7 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 # 3rd party lib imports
 # app imports
-from pictures.models import Picture
+from .models import Picture
 from albums.models import Album
 from everhash.settings.local import EMAIL_HOST_USER
 

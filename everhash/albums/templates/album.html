@@ -1,5 +1,4 @@
 {% extends 'base_album.html' %}
-
 {% block opengraph %}
     <!-- Open Graph Data -->
     <meta name="og:title" property="og:title" content="Everhash" />
@@ -9,19 +8,6 @@
     <meta name="og:description" property="og:description" content="" />
     <meta name="og:site_name"property="og:site_name" content="Everhash" />
 {% endblock opengraph %}
-
-{% block extra_css %}
-<style>
-.back-to-top {
-    cursor: pointer;
-    position: fixed;
-    bottom: 30px;
-    right:30px;
-    display:none;
-    z-index: 1;
-}
-</style>
-{% endblock %}
 
 {% block body %}
 <div id="blueimp-gallery" class="blueimp-gallery">
@@ -57,55 +43,34 @@
         </div>
     </div>
 </div><!--blueimp-gallery-->
-	<div id="beebetaIntro" class="row">
-		<h1><a href="{% url 'view_album' album %}">#{{ album }}</a></h1>
-	</div>
-	<div class="row destacados">
-		<div class="col-sm-12">
-			<div id="links">
-			{% for pic,url in pictureset %}				
-				<div class="col-sm-3" style="padding-top:20px;">				
-					<a href="{{ url }}" title="{{ pic.owner }}" data-gallery>
-					    <img src="{{ url }}" width="300" height="300" alt="{{ pic.owner }}">
-					</a>
-					<div class="caption">
-						<div style="text-align:center;">
-							<a href="https://twitter.com/{{ pic.owner }}" target="_blank">@{{ pic.owner }}</a>
-							<p>{{ pic.like_count }} Favorites</p>
-						</div>
+
+<div id="beebetaIntro" class="row">
+	<h1><a href="{% url 'view_album' album %}">#{{ album }}</a></h1>
+</div>
+<div class="row destacados">
+	<div class="col-sm-12">
+		<div id="links">
+		{% for pic,url in pictureset %}				
+			<div class="col-sm-3" style="padding-top:20px;">				
+				<a href="{{ url }}" title="{{ pic.owner }}" data-gallery>
+				    <img src="{{ url }}" width="300" height="300" alt="{{ pic.owner }}">
+				</a>
+				<div class="caption">
+					<div style="text-align:center;">
+						<a href="https://twitter.com/{{ pic.owner }}" target="_blank">@{{ pic.owner }}</a>
+						<p>{{ pic.like_count }} Favorites</p>
 					</div>
-					{% if forloop.counter|divisibleby:4 %}
-						<div class="clearfix"></div>
-					{% endif %}
 				</div>
-			{% endfor %}
+				{% if forloop.counter|divisibleby:4 %}
+					<div class="clearfix"></div>
+				{% endif %}
 			</div>
+		{% endfor %}
 		</div>
 	</div>
-	<br><br>
+</div>
+<br><br>
+<div>
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
 </div>
-{% endblock %}
-{% block extra_js %}
-<script>
-$(document).ready(function(){
- $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
-        }
-    });
-    // scroll body to 0px on click
-    $('#back-to-top').click(function () {
-        $('#back-to-top').tooltip('hide');
-        $('body,html').animate({
-            scrollTop: 0
-        }, 800);
-        return false;
-    });
-    
-    $('#back-to-top').tooltip('show');
-});
-</script>
 {% endblock %}

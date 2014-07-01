@@ -1,5 +1,6 @@
 # std lib imports
 import os, time, re, urllib2
+
 # django imports
 # 3rd party lib imports
 from PIL import Image
@@ -16,6 +17,7 @@ def image_similarity_bands_via_numpy(filepath1, filepath2):
     """
     This method uses numpy and reshapes image into band sizes and compare their individual elements.
     """
+
     import math
     import operator
     import numpy
@@ -41,6 +43,7 @@ def image_similarity_histogram_via_pil(filepath1, filepath2):
 	Collects a histogram from both file images and compare their differences in root mean square value.
 	A value that is close to 0 indicates that both file images are highly similar.
 	"""
+
     from PIL import Image
     import math
     import operator
@@ -76,6 +79,9 @@ def image_similarity_greyscale_hash_code(filepath1, filepath2):
     return res
     
 def image_pixel_hash_code(image):
+    """
+    Taskes in an image and converts image pixels into hash code.
+    """
     pixels = list(image.getdata())
     avg = sum(pixels) / len(pixels)
     bits = "".join(map(lambda pixel: '1' if pixel < avg else '0', pixels))  # '00010100...'
@@ -83,7 +89,10 @@ def image_pixel_hash_code(image):
     return hexadecimal
  
 def hamming_distance(s1, s2):
-    len1, len2= len(s1),len(s2)
+    """
+    Hamming distance between len1 and len2
+    """
+    len1, len2 = len(s1),len(s2)
     if len1!=len2: 
         "hamming distance works only for string of the same length, so i'll chop the longest sequence"
         if len1>len2:
@@ -94,7 +103,9 @@ def hamming_distance(s1, s2):
     return sum([ch1 != ch2 for ch1, ch2 in zip(s1, s2)])
 
 def get_thumbnail(image, size=(128,128), stretch_to_fit=False, greyscale=False):
-    " get a smaller version of the image - makes comparison much faster/easier"
+    """
+    Get a smaller version of the image - makes comparison much faster/easier. Note, small sampling size have also low accuracy
+    """
     if not stretch_to_fit:
         image.thumbnail(size, Image.ANTIALIAS)
     else:

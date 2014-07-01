@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 # third-party app imports
 # app imports
-from views import index
+from .views import index
 
 class EverhashViewTests(TestCase):
 	"""

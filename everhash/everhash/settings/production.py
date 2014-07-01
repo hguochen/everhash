@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from os import environ
 
 from .base import *
-from everhash.settings.passwd import SECRET_EMAIL_PWD, SECRET_EMAIL, SECRET_SECRET_KEY
+from .passwd import SECRET_EMAIL_PWD, SECRET_EMAIL, SECRET_SECRET_KEY
 
 # Normally you should not import ANYTHING from Django directly
 # into your settings, but ImproperlyConfigured is an exception.

@@ -21,6 +21,7 @@ class AlbumAdmin(admin.ModelAdmin):
 		('Default Picture', {'fields':['default_pic']}),
 		('Milestone', {'fields':['milestone']}),
 	]
+	# pictures for an album are displayed inline instead of as a separate app by itself.
 	inlines = [PictureInline]
 	list_display = ('name', 'pub_date', 'user')
 	list_filter = ['pub_date']

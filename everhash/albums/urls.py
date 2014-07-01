@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 # third-party app imports
 #app imports
 
+
 urlpatterns = patterns('',
 	# album app level urls 
 	# urls routes over from everhash.urls

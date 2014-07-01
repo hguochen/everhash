@@ -7,7 +7,7 @@ from os import environ
 
 # app imports
 from .base import *
-from everhash.settings.passwd import SECRET_EMAIL_PWD, SECRET_EMAIL
+from .passwd import SECRET_EMAIL_PWD, SECRET_EMAIL
 
 ########## DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug

@@ -14,6 +14,7 @@ class AlbumViewTests(TestCase):
 	"""
 	Testing views for albums app.
 	"""
+	
 	def setUp(self):
 		client = Client()
 
@@ -29,3 +30,13 @@ class AlbumViewTests(TestCase):
 		"""Test invalid album get request"""
 		response = self.client.get('/album/ffdsa/')
 		self.assertEquals(response.status_code, 404)
+
+	def test_add_album_page_working(self):
+		"""Test add album page returns from get request"""
+		response = self.client.get(reverse('add_album'))
+		self.assertEquals(response.status_code, 200)
+
+	def test_add_album_page_redirection_working(self):
+		"""Test add album page redirection works when POST is sent."""
+		response = self.client.post(reverse('add_album', args=['banana']))
+		self.assertEquals(response.status_code, 302)

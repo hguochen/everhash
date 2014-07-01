@@ -79,10 +79,12 @@ def view_album(request, album_name=None):
 		
 		# get sharing icon
 		try:
+			# setup icon url
 			icon = Picture.objects.get_most_popular(album_name)
 			icon = S3_URL + album_name + "/" + pic.url
 		except IndexError:
-			icon = ''		
+			# Album is empty, so not a single picture is retrieved. icon url should therefore be empty too
+			icon = ''
 
 		context_instance = RequestContext(request, 
 										{'album':album_name, 'pictureset':pictureset, 'icon':icon, 'urls':urls})
